@@ -1,4 +1,4 @@
-![FingerNFT](https://raw.githubusercontent.com/fingerchar/fingernft/main/images/logo.jpg)
+![FingerNFT](https://raw.githubusercontent.com/fingerchar/fingernft-images/main/images/logo.jpg)
 
 ### 什么是FingerNFT
 FingerNFT系统是基于以太坊开发的去中心化NFT市场, FingerNFT借鉴了Rarible智能合约,实现免手续费离线签名，帮助用户在交易NFT的同时，减少手续费消耗。FingerNFT可部署在以太坊、币安、火币、MATIC等流行的公链上。采用流行的Java与Vue语言开发，结合当下流行的后端技术Spring Boot后端框架和主流的前端框架Vue3，移动端采用uniapp技术, 实现前后端分离技术，是技术团队二开NFT市场的不二之选。
@@ -22,7 +22,7 @@ FingerNFT具有技术主流、价格低、授权宽松等特点。FingerNFT系�
 | 流动性质押版 | 包含盲盒+拍卖版; 1. LP质押: 所有swap系统上的lp代币质押奖励平台币; 2. Pool质押: 质押平台币，获取第三方币种;  3. NFT质押: 设置指定NFT合约或tokenid参与质押，奖励指定的币种。 |
 | 区块链游戏(GameFi) 版| 包含流动性质押版; 1. GameFi: 任意游戏资产可对接平台，通过平台授权登录游戏；2.在平台上充值资产到游戏方、或从游戏方提现资产。 |
 
-![商业版](https://raw.githubusercontent.com/fingerchar/fingernft/main/images/versions.jpg)
+![商业版](https://raw.githubusercontent.com/fingerchar/fingernft-images/main/images/versions.jpg)
 
 ### 联系我们
 * 电话: 15880172590、13506992326
@@ -36,11 +36,11 @@ FingerNFT具有技术主流、价格低、授权宽松等特点。FingerNFT系�
 * Maven >= 3.1.1
 
 ### 演示图
-![](https://raw.githubusercontent.com/fingerchar/fingernft/main/images/show1.png)
+![](https://raw.githubusercontent.com/fingerchar/fingernft-images/main/images/show1.png)
 
-![](https://raw.githubusercontent.com/fingerchar/fingernft/main/images/show2.png)
+![](https://raw.githubusercontent.com/fingerchar/fingernft-images/main/images/show2.png)
 
-![](https://raw.githubusercontent.com/fingerchar/fingernft/main/images/show3.png)
+![](https://raw.githubusercontent.com/fingerchar/fingernft-images/main/images/show3.png)
 
 
 
