@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fingerchar.dao.ext.FcOrderExtMapper">
+    <select id="listVo" resultType="com.fingerchar.dto.FcOrderDto" >
+        SELECT
+        fc.usdt_price AS  usdtPrice,
+        nft.type AS type
+        FROM
+        fc_order fc ,
+        fc_contract_nft nft
+        WHERE
+        fc.`status`=1 AND
+        (( fc.sell_token_id = nft.token_id AND fc.sell_token = nft.address )
+        OR ( fc.buyer_token_id = nft.token_id AND fc.buyer_token = nft.address ))
+        <if test="type != null ">
+          AND  nft.type = #{type}
+        </if>
+        <if test="status ==1">
+             GROUP BY nft.type
+        </if>
+    </select>
+
+    <select id="countUser" resultType="Integer" >
+        SELECT
+        count( distinct fc.owner)
+        FROM
+        fc_order fc
+        <if test="ew.emptyOfWhere == false">
+            ${ew.customSqlSegment}
+        </if>
+    </select>
+
+    <select id="getAccumulatedMoney" resultType="com.fingerchar.domain.FcOrderLog" >
+        SELECT log.`from`,log.content,log.type
+        FROM fc_order_log log LEFT JOIN fc_order fc ON log.order_id = fc.id
+        <if test="ew.emptyOfWhere == false">
+            ${ew.customSqlSegment}
+        </if>
+    </select>
+
+    <select id="findByPage" resultType="com.fingerchar.domain.FcOrderLog" >
+        SELECT log.*
+        FROM fc_order_log log LEFT JOIN fc_order fc ON log.order_id = fc.id
+        <if test="ew.emptyOfWhere == false">
+            ${ew.customSqlSegment}
+        </if>
+    </select>
+
+    <select id="getAll" resultType="String" >
+        SELECT DISTINCT log.token FROM fc_order_log AS log LEFT JOIN fc_order fc ON log.order_id = fc.id
+        WHERE (log.type = 4 OR log.type = 8) AND fc.`status` = 1 AND
+        <if test="ew.nonEmptyOfWhere == true ">
+            ${ew.sqlSegment}
+        </if>
+    </select>
+
+    <select id="getTokenForLog" resultType="com.fingerchar.domain.FcOrderLog" >
+        SELECT DISTINCT log.token FROM fc_order_log AS log LEFT JOIN fc_order fc ON log.order_id = fc.id
+        WHERE (log.type = 4 OR log.type = 8) AND fc.`status` = 1 AND
+        <if test="ew.nonEmptyOfWhere == true ">
+            ${ew.sqlSegment}
+        </if>
+    </select>
+</mapper>

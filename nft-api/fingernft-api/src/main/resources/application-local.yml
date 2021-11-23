@@ -1,0 +1,47 @@
+server:
+  port: 20004
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 800
+    min-spare-threads: 100
+    accept-count: 1000
+    max-connections: 8000
+spring:
+  servlet:
+      multipart:
+        max-file-size: 40MB
+        max-request-size: 100MB
+  messages:
+    encoding: UTF-8
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器地址
+    host: localhost
+    password: 
+    port: 6379
+    timeout: 20000
+  mvc:
+    async:
+      request-timeout: 20000
+logging:
+  config: classpath:logback-spring.xml
+  
+fc:
+  storage:
+    active: ipfs
+    local:
+      storagePath: 
+      address: 
+    ipfs:
+      host: localhost
+      port: 123
+      localPath: 
+      downloadPort: 456
+      requestBase: 
+      remoteService: 
+  keyprop:
+    keyPath: 
+    rsaPriKey: 
+    rsaPubKey: 
+

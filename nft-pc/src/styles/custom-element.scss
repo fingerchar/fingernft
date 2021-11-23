@@ -1,0 +1,18 @@
+
+
+.el-message{
+  justify-content: center;
+}
+.el-message--error{
+  background: none;
+  border: none;
+}
+.el-message-box--center{
+  padding-bottom: 10px;
+}
+
+.el-message-box__btns{
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 1px solid #f0f0f0;
+}

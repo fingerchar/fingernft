@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fingerchar.db.dao.ext.FcContractNftExtMapper">
+    
+    <update id="setNftVerify">
+        update fc_contract_nft set nft_verify = true where is_sync=true and nft_verify = false and deleted = false
+    </update>
+    
+    <select id="findVerifyNft" resultType="com.fingerchar.db.domain.FcContractNft">
+    	select distinct t1.*
+			from fc_contract_nft t1
+			left join fc_nft_items t2
+			on t1.id = t2.`nft_id`
+			where t1.nft_verify = true
+    		and t1.is_sync = true
+			and t2.deleted = false
+			<if test='null != categoryId'> 
+	        	and t1.category_id = #{categoryId}
+	        </if>
+	        <if test='null != isSell'> 
+	        	and t2.onsell = #{isSell}
+	        </if>
+	        <if test='null != address'>
+	        	and t1.address = #{address}
+	        </if>
+	        <if test='null != contracts'> 
+	        	and t1.address in 
+	        	<foreach item='item' index='index' collection='contracts' open='(' separator=',' close=')'>#{item}</foreach>
+	        </if>
+	        
+	        <choose>
+	            <when test="null != sort and '' != sort">
+	                order by t2.`${sort}` ${order}
+	            </when>
+	            <otherwise>
+	                order by t1.create_time desc
+	            </otherwise>
+	        </choose>
+    </select>
+    
+    <select id="findContractNft" resultType="com.fingerchar.db.domain.FcContractNft">
+    	select distinct t1.*
+			from fc_contract_nft t1
+			left join fc_nft_items t2
+			on t1.id = t2.`nft_id`
+			where t1.is_sync = true
+			and t2.deleted = false
+	        <if test='null != isSell'> 
+	        	and t2.onsell = #{isSell}
+	        </if>
+	        <if test='null != address'>
+	        	and t1.address = #{address}
+	        </if>
+	        order by t1.create_time desc
+    </select>
+    
+    <select id="searchNft" resultType="com.fingerchar.db.domain.FcContractNft">
+    	select distinct t1.*
+			from fc_contract_nft t1
+    		where match (name) against (#{name})
+    		and t1.nft_verify = true
+    		and t1.is_sync = true
+    		order by t1.id desc
+    </select>
+    
+    <select id="findOnsaleNft" resultType="com.fingerchar.db.domain.FcContractNft">
+    	select distinct t1.*
+			from fc_contract_nft t1
+			left join fc_nft_items t2
+			on t1.id = t2.`nft_id`
+			where t1.is_sync = true
+			and t2.`onsell` = true
+			and t2.item_owner = #{owner}
+			and t2.deleted = false
+			order by t1.create_time desc
+    </select>
+    
+    <select id="findCollectionNft" resultType="com.fingerchar.db.domain.FcContractNft">
+    	select distinct t1.*
+			from fc_contract_nft t1
+			left join fc_nft_items t2    
+			on t1.id = t2.`nft_id`
+			where t1.is_sync = true
+    		and t2.item_owner = #{owner}
+    		and t2.deleted = false
+			order by t1.create_time desc
+    </select>
+    
+    <select id="countCreatorNft" resultType="java.lang.Integer">
+    	select count(1) 
+    		from fc_contract_nft t1
+			where t1.is_sync = true
+		  	and t1.deleted = false
+		  	and t1.creator = #{creator}
+    </select>
+    
+    <select id="countContractOnsale" resultType="java.lang.Integer">
+    	select count(1) 
+    		from fc_contract_nft t1
+			left join fc_nft_items t2
+			on t1.id = t2.`nft_id`
+			where t1.is_sync = true
+    		and t1.address = #{address}
+			and t2.`onsell` = true
+			and t2.deleted = false
+    </select>
+    
+    <select id="findCreatorNft" resultType="com.fingerchar.db.domain.FcContractNft">
+    	select distinct t1.* 
+    		from fc_contract_nft t1
+    		where t1.is_sync = true
+    		and t1.creator = #{creator}
+    		order by t1.create_time desc
+    </select>
+   
+    <select id="findLikeNft" resultType="com.fingerchar.db.domain.FcContractNft">
+    	select distinct t2.* 
+    		from fc_nft_like t1
+			left join fc_contract_nft t2
+			on t1.`nft_id` = t2.`id`
+			where t2.is_sync = true
+    		and t1.`user_address` = #{userAddress}
+			order by t1.create_time desc
+    </select>
+</mapper>

@@ -1,0 +1,55 @@
+spring: 
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+  messages:
+    encoding: UTF-8
+  redis:
+    database: 0
+    host: localhost
+    password: 
+    port: 6379
+    timeout: 20000
+ds0: 
+  driverClassName: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/fingernft?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+  username:  abc
+  password:  123
+  initialSize:  10
+  maxActive:  50
+  minIdle:  10
+  maxWait:  60000
+  poolPreparedStatements:  true
+  maxPoolPreparedStatementPerConnectionSize:  20
+  validationQuery:  SELECT 1 FROM DUAL
+  testOnBorrow:  false
+  testOnReturn:  false
+  testWhileIdle:  true
+  timeBetweenEvictionRunsMillis:  60000
+  filters:  stat,wall  
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+server:
+  port: 8081
+
+logging:
+  config: classpath:logback-spring.xml
+fc:
+  storage:
+    active: ipfs
+    local:
+      storagePath: 
+      address: 
+    ipfs:
+      host: localhost
+      port: 123
+      localPath: 
+      downloadPort: 456
+      requestBase: 
+      remoteService: 
+  errorlog: 
+    projectName: 
+    logSystemUrl: 
+    hostname: 
