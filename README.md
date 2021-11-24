@@ -25,11 +25,11 @@ FingerNFT具有技术主流、价格低、授权宽松等特点。FingerNFT系�
 ![商业版](https://cdn.fingerchar.com/images/versions.png)
 
 ### 联系我们
-* 电话: 15880172590、13506992326
+* 电话: 13459461911
 
 #### 微信
 
-![微信](https://cdn.fingerchar.com/images/weixin_rcode.png)
+![微信](https://cdn.fingerchar.com/images/customer.png)
 
 
 
