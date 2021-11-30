@@ -28,7 +28,6 @@ pnpm-debug.log*
 *.sw?
 *.swp
 *.log
-*.jar
 *.zip
 .factorypath
 logs/
