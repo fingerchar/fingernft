@@ -229,7 +229,6 @@
   </div>
 </template>
 <script>
-import TradesInfo from "@/components/TradesInfo";
 import FollowPopup from "@/components/FollowPopup";
 
 import NftDialog from "@/mixins/NftDialog";
@@ -242,7 +241,6 @@ export default {
   components: {
     FollowPopup,
     Share,
-    TradesInfo
   },
   data() {
     return {
@@ -463,32 +461,6 @@ export default {
         }
       });
     },
-    getTrade: function () {
-      let params = {
-        address: this.user.coinbase,
-        page: this.page,
-        limit: this.limit,
-      };
-      if (this.loadStatus == "loading") return;
-      this.loadStatus = "loading";
-      var that = this;
-      
-      this.$api("user.trade", params).then((res) => {
-        this.loadStatus = "loaded";
-        if (that.$tools.checkResponse(res)) {
-          that.loadStatus = "over";
-          if (params.page == 1) this.nftList.trade = [];
-          that.nftList.trade = that.nftList.trade.concat(res.data.list);
-          that.page = params.page + 1;
-          that.loadStatus =
-            res.data.list.length < res.data.limit
-              ? "over"
-              : this.loadStatus;
-        } else {
-          that.$tools.message(res.errmsg);
-        }
-      });
-    },
     getList() {
       switch (this.tab) {
         case "sale":
@@ -502,9 +474,6 @@ export default {
           break;
         case "liked":
           this.getLiked();
-          break;
-        case "trade":
-          this.getTrade();
           break;
       }
     },

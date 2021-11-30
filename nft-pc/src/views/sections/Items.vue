@@ -210,7 +210,6 @@
 </template>
 <script>
 import { toClipboard } from "@soerenmartius/vue3-clipboard";
-import TradesInfo from "@/components/TradesInfo";
 import FollowPopup from "@/components/FollowPopup";
 import Share from "@/components/Share";
 
@@ -223,7 +222,6 @@ export default {
   components: {
     FollowPopup,
     Share,
-    TradesInfo,
   },
   data() {
     return {
