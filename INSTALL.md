@@ -1,12 +1,12 @@
 
 # 源码结构
 
-- fingernft-admin 后台java源码
-- fingernft-mapi 市场java源码
-- truffle-contract 智能合约
-- vue-admin 后台vue源码
-- vue-h5 移动端uniswap源码
-- vue-pc pc端vue源码
+- nft-admin 后台java源码
+- nft-api 市场java源码
+- nft-contract 智能合约
+- nft-h5 移动端uniswap源码
+- nft-pc pc端vue源码
+- token-contract ERC20代币合约
 
 # 服务器搭建
 Finger Nft搭建可以用宝塔面板，通过宝塔安装，后续如果为了安全，可以把宝塔关闭，建议不要安装phpAdmin。
