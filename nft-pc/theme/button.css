@@ -397,12 +397,12 @@
   .el-button.is-round {
     padding: 12px 20px; }
   .el-button:hover, .el-button:focus {
-    color: #6800FF;
-    border-color: #d2b3ff;
-    background-color: #f0e6ff; }
+    color: #59A6F3;
+    border-color: #cde4fb;
+    background-color: #eef6fe; }
   .el-button:active {
-    color: #5e00e6;
-    border-color: #5e00e6;
+    color: #5095db;
+    border-color: #5095db;
     outline: none; }
   .el-button::-moz-focus-inner {
     border: 0; }
@@ -410,16 +410,16 @@
     margin-left: 5px; }
   .el-button.is-plain:hover, .el-button.is-plain:focus {
     background: #FFFFFF;
-    border-color: #6800FF;
-    color: #6800FF; }
+    border-color: #59A6F3;
+    color: #59A6F3; }
   .el-button.is-plain:active {
     background: #FFFFFF;
-    border-color: #5e00e6;
-    color: #5e00e6;
+    border-color: #5095db;
+    color: #5095db;
     outline: none; }
   .el-button.is-active {
-    color: #5e00e6;
-    border-color: #5e00e6; }
+    color: #5095db;
+    border-color: #5095db; }
   .el-button.is-disabled, .el-button.is-disabled:hover, .el-button.is-disabled:focus {
     color: #C0C4CC;
     cursor: not-allowed;
@@ -453,42 +453,42 @@
     padding: 12px; }
   .el-button--primary {
     color: #FFFFFF;
-    background-color: #6800FF;
-    border-color: #6800FF; }
+    background-color: #59A6F3;
+    border-color: #59A6F3; }
     .el-button--primary:hover, .el-button--primary:focus {
-      background: #8633ff;
-      border-color: #8633ff;
+      background: #7ab8f5;
+      border-color: #7ab8f5;
       color: #FFFFFF; }
     .el-button--primary:active {
-      background: #5e00e6;
-      border-color: #5e00e6;
+      background: #5095db;
+      border-color: #5095db;
       color: #FFFFFF;
       outline: none; }
     .el-button--primary.is-active {
-      background: #5e00e6;
-      border-color: #5e00e6;
+      background: #5095db;
+      border-color: #5095db;
       color: #FFFFFF; }
     .el-button--primary.is-disabled, .el-button--primary.is-disabled:hover, .el-button--primary.is-disabled:focus, .el-button--primary.is-disabled:active {
       color: #FFFFFF;
-      background-color: #b480ff;
-      border-color: #b480ff; }
+      background-color: #acd3f9;
+      border-color: #acd3f9; }
     .el-button--primary.is-plain {
-      color: #6800FF;
-      background: #f0e6ff;
-      border-color: #c399ff; }
+      color: #59A6F3;
+      background: #eef6fe;
+      border-color: #bddbfa; }
       .el-button--primary.is-plain:hover, .el-button--primary.is-plain:focus {
-        background: #6800FF;
-        border-color: #6800FF;
+        background: #59A6F3;
+        border-color: #59A6F3;
         color: #FFFFFF; }
       .el-button--primary.is-plain:active {
-        background: #5e00e6;
-        border-color: #5e00e6;
+        background: #5095db;
+        border-color: #5095db;
         color: #FFFFFF;
         outline: none; }
       .el-button--primary.is-plain.is-disabled, .el-button--primary.is-plain.is-disabled:hover, .el-button--primary.is-plain.is-disabled:focus, .el-button--primary.is-plain.is-disabled:active {
-        color: #a466ff;
-        background-color: #f0e6ff;
-        border-color: #e1ccff; }
+        color: #9bcaf8;
+        background-color: #eef6fe;
+        border-color: #deedfd; }
   .el-button--success {
     color: #FFFFFF;
     background-color: #00C657;
@@ -667,16 +667,16 @@
       padding: 7px; }
   .el-button--text {
     border-color: transparent;
-    color: #6800FF;
+    color: #59A6F3;
     background: transparent;
     padding-left: 0;
     padding-right: 0; }
     .el-button--text:hover, .el-button--text:focus {
-      color: #8633ff;
+      color: #7ab8f5;
       border-color: transparent;
       background-color: transparent; }
     .el-button--text:active {
-      color: #5e00e6;
+      color: #5095db;
       border-color: transparent;
       background-color: transparent; }
     .el-button--text.is-disabled, .el-button--text.is-disabled:hover, .el-button--text.is-disabled:focus {
@@ -717,7 +717,7 @@
       border-radius: 0; }
     .el-button-group > .el-button:not(:last-child) {
       margin-right: -1px; }
-    .el-button-group > .el-button:hover, .el-button-group > .el-button:focus, .el-button-group > .el-button:active {
+    .el-button-group > .el-button:not(.is-disabled):hover, .el-button-group > .el-button:not(.is-disabled):focus, .el-button-group > .el-button:not(.is-disabled):active {
       z-index: 1; }
     .el-button-group > .el-button.is-active {
       z-index: 1; }

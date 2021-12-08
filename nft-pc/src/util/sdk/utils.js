@@ -1,5 +1,4 @@
 import ethABI from 'ethereumjs-abi';
-import { BigNumber } from '@0xproject/utils';
 const BN = require('bn.js');
 import constants from './constants'
 

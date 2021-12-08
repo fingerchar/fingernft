@@ -58,7 +58,7 @@ service.interceptors.response.use(
   }, error => {
     return {
       errno: 400,
-      errMsg: error.message,
+      errmsg: error.message,
     }
   }
 )

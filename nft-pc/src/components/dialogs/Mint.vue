@@ -232,7 +232,7 @@ export default {
         this.step.mint = 0;
         return;
       }
-      this.asset = Object.assign(this.asset, {tokenId: result.tokenId});
+      this.asset = Object.assign( this.asset );
       this.error.mint = "";
       this.step.mint = 2;
       if(!this.nft.form.onSale){

@@ -1,6 +1,5 @@
 import utils_web3 from '@/util/web3/index'
 var Web3 = require("web3");
-import { BigNumber } from '@0xproject/utils';
 import types from './types';
 import utils from './utils';
 import truffle_contract from '@truffle/contract';
