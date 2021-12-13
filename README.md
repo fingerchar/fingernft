@@ -25,6 +25,7 @@ FingerNFT具有技术主流、价格低、授权宽松等特点。FingerNFT系�
 
 [开源版FingerNFT演示](https://fingernft.fingerchar.com)
 
+[部署文档](./INSTALL.md)
 
 ### 商业版
 
