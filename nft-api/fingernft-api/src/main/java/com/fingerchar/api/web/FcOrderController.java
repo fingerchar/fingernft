@@ -8,14 +8,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
 import com.fingerchar.api.constant.SysConfConstant;
 import com.fingerchar.api.dto.PrepareOrderInfo;
+import com.fingerchar.api.service.FcOrderCacheService;
 import com.fingerchar.api.service.FcOrderService;
-import com.fingerchar.api.service.FcRedisService;
 import com.fingerchar.api.service.FcUserService;
 import com.fingerchar.api.utils.DappCryptoUtil;
 import com.fingerchar.core.base.controller.BaseController;
 import com.fingerchar.core.util.ResponseUtil;
+import com.fingerchar.db.domain.FcOrderCache;
 import com.fingerchar.db.domain.FcUser;
 
 @RestController
@@ -24,12 +26,12 @@ public class FcOrderController extends BaseController {
 
 	@Autowired
 	FcOrderService orderService;
+	
+	@Autowired
+	FcOrderCacheService orderCacheService;
 
 	@Autowired
 	FcUserService userService;
-
-	@Autowired
-	FcRedisService redisService;
 
 	@PostMapping("add")
 	public Object add(PrepareOrderInfo order) {
@@ -46,17 +48,19 @@ public class FcOrderController extends BaseController {
 		}
 
 		if(order.getType() == 1 || order.getType() == 2 || order.getType() == 5 || order.getType() == 6) {
-			Object temp = null;
-			if(order.getType() == 1 || order.getType() == 2) {				
-				temp = this.redisService.get(user.getAddress() + order.getSellToken() + order.getSellTokenId());
+			FcOrderCache cache = null;
+			if(order.getType() == 1 || order.getType() == 2) {		
+				cache = this.orderCacheService.getCacheOrder(user.getAddress() + order.getSellToken() + order.getSellTokenId());
 			} else {
-				temp = this.redisService.get(user.getAddress() + order.getBuyToken() + order.getBuyTokenId());
+				cache = this.orderCacheService.getCacheOrder(user.getAddress() + order.getBuyToken() + order.getBuyTokenId());
 			}
-			if(null == temp) {
+			if(null == cache || cache.getExpiredTime() < System.currentTimeMillis()) {
 				return ResponseUtil.fail(-1, "Error order");
 			}
-			PrepareOrderInfo redisOrder = (PrepareOrderInfo)temp;
-			if(!redisOrder.getSalt().equals(order.getSalt()) || !redisOrder.getOwner().toLowerCase().equals(order.getOwner().toLowerCase())) {
+			
+			PrepareOrderInfo cacheOrder = JSON.parseObject(cache.getValue(), PrepareOrderInfo.class);
+			
+			if(!cacheOrder.getSalt().equals(order.getSalt()) || !cacheOrder.getOwner().toLowerCase().equals(order.getOwner().toLowerCase())) {
 				return ResponseUtil.fail(-1, "Error order");
 			}
 			if(!DappCryptoUtil.validate(order.getSignature(), order.getMessage(), user.getAddress())) {

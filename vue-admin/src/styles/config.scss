@@ -1,0 +1,28 @@
+
+
+.config-container{
+  .config-group{
+    width: 600px;
+    margin: 0 auto;
+    padding: 60px 0;
+  }
+  .config-item{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .item-label{
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  .item-value{
+    align-items: center;
+    display: flex;
+  }
+  .show-value{
+    flex: 1;
+    margin-right: 10px;
+  }
+}

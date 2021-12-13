@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import com.fingerchar.utils.ErrorMsgUtils;
 import com.fingerchar.utils.ResponseUtil;
 
 @ControllerAdvice
@@ -26,7 +25,6 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Object badArgumentHandler(IllegalArgumentException e, HttpServletRequest request) {
         logger.error(request.getRequestURL() +"异常：" + e.getMessage());
-        ErrorMsgUtils.addErrorMsg("IllegalArgumentException", 4, e.toString());
         return ResponseUtil.badArgumentValue();
     }
 
@@ -34,7 +32,6 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Object badArgumentHandler(MethodArgumentTypeMismatchException e,HttpServletRequest request) {
         logger.error(request.getRequestURL() +"异常：" + e.getMessage());
-        ErrorMsgUtils.addErrorMsg("MethodArgumentTypeMismatchException", 4, e.toString());
         return ResponseUtil.badArgumentValue();
     }
 
@@ -42,7 +39,6 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Object badArgumentHandler(MissingServletRequestParameterException e,HttpServletRequest request) {
         logger.error(request.getRequestURL() +"异常：" + e.getMessage());
-        ErrorMsgUtils.addErrorMsg("MissingServletRequestParameterException", 4, e.toString());
         return ResponseUtil.badArgumentValue();
     }
 
@@ -50,7 +46,6 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Object badArgumentHandler(HttpMessageNotReadableException e,HttpServletRequest request) {
         logger.error(request.getRequestURL() +"异常：" + e.getMessage());
-        ErrorMsgUtils.addErrorMsg("HttpMessageNotReadableException", 4, e.toString());
         return ResponseUtil.badArgumentValue();
     }
 
@@ -58,7 +53,6 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Object handlerException(MethodArgumentNotValidException e,HttpServletRequest request){
         logger.error(request.getRequestURL() + "异常: "+ e.getMessage());
-        ErrorMsgUtils.addErrorMsg("MethodArgumentNotValidException", 4, e.toString());
         return ResponseUtil.fail(402,e.getBindingResult().getFieldError().getDefaultMessage());
     }
 
@@ -66,8 +60,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Object seriousHandler(Exception e) {
         logger.error(e.getMessage(), e);
-        ErrorMsgUtils.addErrorMsg("Other Exception", 4, e.toString());
-        return ResponseUtil.serious();
+	        return ResponseUtil.serious();
     }
 
 

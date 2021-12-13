@@ -1,16 +1,16 @@
 package com.fingerchar.domain;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fingerchar.base.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
 
 /**
  * @Description FcNftLike
  * @Author 
- * @Date 2021-11-21
+ * @Date 2021-12-11
  * @Version 2.1
  */
-@TableName("fc_nft_like")
+@TableName("`fc_nft_like`")
 public class FcNftLike extends BaseEntity {
 
 
@@ -44,8 +44,6 @@ public class FcNftLike extends BaseEntity {
     }
 
     public static final String NFT_ID = "`nft_id`";
-
-    public static final String USER_ID = "`user_id`";
 
     public static final String USER_ADDRESS = "`user_address`";
 

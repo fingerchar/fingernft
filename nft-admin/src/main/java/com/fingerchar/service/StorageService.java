@@ -2,6 +2,7 @@ package com.fingerchar.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
 
 import com.fingerchar.domain.FcStorage;
 import com.fingerchar.storage.IpfsStorage;
@@ -18,6 +19,7 @@ import java.util.stream.Stream;
 /**
  * 提供存储服务类，所有存储服务均由该类对外提供
  */
+@Service
 public class StorageService {
 
 	private String active;

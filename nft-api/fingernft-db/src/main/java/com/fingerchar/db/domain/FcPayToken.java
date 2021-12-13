@@ -8,10 +8,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 /**
  * @Description FcPayToken
  * @Author 
- * @Date 2021-11-21
+ * @Date 2021-12-12
  * @Version 2.1
  */
-@TableName("fc_pay_token")
+@TableName("`fc_pay_token`")
 public class FcPayToken extends BaseEntity {
 
 

@@ -18,13 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.fingerchar.api.constant.RedisConstant;
 import com.fingerchar.api.constant.SysConfConstant;
 import com.fingerchar.api.dto.ActiveBidInfo;
 import com.fingerchar.api.service.FcContractNftService;
 import com.fingerchar.api.service.FcContractService;
 import com.fingerchar.api.service.FcNftItemsService;
-import com.fingerchar.api.service.FcRedisService;
 import com.fingerchar.api.service.FcSystemConfigService;
 import com.fingerchar.api.service.FcUserService;
 import com.fingerchar.core.base.controller.BaseController;
@@ -47,9 +45,6 @@ public class FcContractNftController extends BaseController {
 
 	@Autowired
 	FcUserService userService;
-
-	@Autowired
-	FcRedisService redisService;
 
 	@Autowired
 	FcSystemConfigService configService;
@@ -100,17 +95,11 @@ public class FcContractNftController extends BaseController {
 		nft.setCreator(user.getAddress());
 		nft.setType(contract.getType());
 
-		Object isVerifyTemp = this.redisService.get(RedisConstant.SYS_CONFIG_PRE + SysConfConstant.NFT_DEFAULT_VERIFY);
-		if(null == isVerifyTemp) {
-			String temp = this.configService.get(SysConfConstant.NFT_DEFAULT_VERIFY);
-			if(StringUtils.isEmpty(temp)) {
-				nft.setNftVerify(0);
-			} else {
-				nft.setNftVerify(1);
-			}
+		String temp = this.configService.get(SysConfConstant.NFT_DEFAULT_VERIFY);
+		if(!StringUtils.isEmpty(temp) && "1".equals(temp)) {
+			nft.setNftVerify(1);
 		} else {
-			Boolean isVerify = Boolean.parseBoolean((String)isVerifyTemp);
-			nft.setNftVerify(isVerify?1:0);
+			nft.setNftVerify(0);
 		}
 		nft.setIsSync(false);
 

@@ -25,37 +25,26 @@ public class AdminPayTokenController {
     @Autowired
     private FcPayTokenService payTokenService;
 
-
-    @PostMapping("/all")
-    public Object all(){
+    @PostMapping("/list")
+    public Object list(){
         List<FcPayToken> all = payTokenService.findAll();
         return ResponseUtil.okList(all);
     }
     
-    @RequiresPermissions("admin:paytoken:disable")
+    @RequiresPermissions("admin:paytoken:delete")
     @RequiresPermissionsDesc(menu = {"支付管理", "支付管理"}, button = "禁用")
-    @PostMapping("/disable")
+    @PostMapping("/delete")
     public Object disable(String address) {
     	if(StringUtils.isEmpty(address)) {
     		return ResponseUtil.fail(-1, "invalid paytoken address");
     	}
-    	return this.payTokenService.disable(address);
+    	return this.payTokenService.delete(address);
     }
-    
-    @RequiresPermissions("admin:paytoken:enable")
-    @RequiresPermissionsDesc(menu = {"支付管理", "支付管理"}, button = "启用")
-    @PostMapping("/enable")
-    public Object enable(String address) {
-    	if(StringUtils.isEmpty(address)) {
-    		return ResponseUtil.fail(-1, "invalid paytoken address");
-    	}
-    	return this.payTokenService.enable(address);
-    }
-    
-    @RequiresPermissions("admin:paytoken:save")
+
+    @RequiresPermissions("admin:paytoken:create")
     @RequiresPermissionsDesc(menu = {"支付管理", "支付管理"}, button = "保存")
-    @PostMapping("/save")
-    public Object save(FcPayToken payToken) {
+    @PostMapping("/create")
+    public Object create(FcPayToken payToken) {
     	if(null == payToken) {
     		return ResponseUtil.fail(-1, "invalid paytoken");
     	}
@@ -66,7 +55,24 @@ public class AdminPayTokenController {
     		|| StringUtils.isEmpty(payToken.getName())) {
     		return ResponseUtil.fail(-1, "invalid paytoken");
     	}
-    	return this.payTokenService.saveOrUpdate(payToken);
+    	return this.payTokenService.save(payToken);
+    }
+    
+    @RequiresPermissions("admin:paytoken:update")
+    @RequiresPermissionsDesc(menu = {"支付管理", "支付管理"}, button = "更新")
+    @PostMapping("/update")
+    public Object update(FcPayToken payToken) {
+    	if(null == payToken || null == payToken.getId()) {
+    		return ResponseUtil.fail(-1, "invalid paytoken");
+    	}
+    	if(StringUtils.isEmpty(payToken.getAddress()) 
+    		|| null == payToken.getDecimals()
+    		|| null == payToken.getType()
+    		|| StringUtils.isEmpty(payToken.getSymbol())
+    		|| StringUtils.isEmpty(payToken.getName())) {
+    		return ResponseUtil.fail(-1, "invalid paytoken");
+    	}
+    	return this.payTokenService.update(payToken);
     }
 
 }

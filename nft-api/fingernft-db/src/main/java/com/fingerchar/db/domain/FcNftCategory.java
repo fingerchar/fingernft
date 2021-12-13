@@ -7,10 +7,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 /**
  * @Description FcNftCategory
  * @Author 
- * @Date 2021-11-21
+ * @Date 2021-12-12
  * @Version 2.1
  */
-@TableName("fc_nft_category")
+@TableName("`fc_nft_category`")
 public class FcNftCategory extends BaseEntity {
 
 

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 /**
  * @Description FcOrder
  * @Author 
- * @Date 2021-11-16
+ * @Date 2021-12-11
  * @Version 2.1
  */
 @TableName("`fc_order`")
@@ -30,7 +30,7 @@ public class FcOrder extends BaseEntity {
      * 售卖token id
      */
     @TableField("`sell_token_id`")
-    private Long sellTokenId;
+    private String sellTokenId;
 
     /**
      * 售卖token类型
@@ -54,7 +54,7 @@ public class FcOrder extends BaseEntity {
      * 购买token id
      */
     @TableField("`buyer_token_id`")
-    private Long buyerTokenId;
+    private String buyerTokenId;
 
     /**
      * 购买token类型
@@ -127,11 +127,11 @@ public class FcOrder extends BaseEntity {
         this.sellToken = sellToken;
     }
 
-    public Long getSellTokenId() {
+    public String getSellTokenId() {
         return sellTokenId;
     }
 
-    public void setSellTokenId(Long sellTokenId) {
+    public void setSellTokenId(String sellTokenId) {
         this.sellTokenId = sellTokenId;
     }
 
@@ -159,11 +159,11 @@ public class FcOrder extends BaseEntity {
         this.buyerToken = buyerToken;
     }
 
-    public Long getBuyerTokenId() {
+    public String getBuyerTokenId() {
         return buyerTokenId;
     }
 
-    public void setBuyerTokenId(Long buyerTokenId) {
+    public void setBuyerTokenId(String buyerTokenId) {
         this.buyerTokenId = buyerTokenId;
     }
 

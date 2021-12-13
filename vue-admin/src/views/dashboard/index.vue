@@ -239,16 +239,6 @@
         <chart-pie v-else :title="$t('dashboard.changeHandsNftRatio')"></chart-pie>
       </el-col>
     </el-row>
-    <li class="title-text">{{ $t("dashboard.ranking") }}</li>
-    <el-row>
-      <ranking-chart
-        v-if="rankData.length > 0"
-        :randData="rankData"
-        :xData="rank.openAmount"
-        :yData="rank.blindBoxName"
-      ></ranking-chart>
-      <ranking-chart v-else></ranking-chart>
-    </el-row>
   </div>
 </template>
 
@@ -278,7 +268,6 @@ export default {
       chartSalesVolume: [],
       // 营收数据--销量对比
       xRevenue: [],
-      // contrastSalesVolumeLegend: [this.$t('dashboard.yesterdaySales'),this.$t('dashboard.todaySales')],
       contrastSalesVolumeLegend: [
         "dashboard.yesterdaySales",
         "dashboard.todaySales",
@@ -320,12 +309,10 @@ export default {
       yChangeHandsNftAfter: [],
       // 排行榜
       rankData: [],
-      rank: {},
     };
   },
   created() {
     this.getList();
-    this.ranking();
   },
   methods: {
     getList() {
@@ -339,23 +326,6 @@ export default {
           this.formatNFT(res.data.staNftList, res.data.contrastNft);
         }
       })
-    },
-    ranking() {
-      this.$api("statistics.blindboxlist", {
-        staTime: parseInt(this.datetime / 1000),
-      }).then((res) => {
-        if (this.$tool.checkResponse(res)) {
-          let rankData = res.data;
-          let blindBoxName = [];
-          let openAmount = [];
-          for (let item of rankData) {
-            blindBoxName.push(item.blindBoxName);
-            openAmount.push(item.openAmount);
-          }
-          this.rankData = rankData;
-          this.rank = { blindBoxName, openAmount };
-        }
-      });
     },
     increaseRate(prev, cur) {
       return {
@@ -430,7 +400,6 @@ export default {
     dateChange(val) {
       this.datetime = val;
       this.getList();
-      this.ranking();
     },
     resetRevenue() {
       this.revenue = [];

@@ -1,23 +1,22 @@
 package com.fingerchar.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fingerchar.base.entity.BaseEntity;
 import com.fingerchar.base.service.IBaseService;
-import com.fingerchar.constant.ContractType;
 import com.fingerchar.domain.FcContract;
-
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import javax.annotation.Resource;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class FcContractService  {
 
-    @Resource
+    @Autowired
     private IBaseService baseService;
 
     /**
@@ -56,7 +55,7 @@ public class FcContractService  {
      * @param contract Verify记录
      * @return 更新成功返回true，否则返回false
      */
-    public boolean VerifyContract(FcContract contract) {
+    public boolean verifyContract(FcContract contract) {
         contract.setVerify(true);
         contract.setUpdateTime(System.currentTimeMillis()/1000);
         return baseService.update(contract) > 0;
@@ -94,46 +93,13 @@ public class FcContractService  {
      * @return
      */
     public FcContract findById(Long id) {
-
         return baseService.getById(FcContract.class,id);
     }
-
-	/**
-	 * @param
-	 * @return
-	 */
-	public List<String> findAddressByType(String str) {
-		Integer type = ContractType.getAssetType(str);
-		QueryWrapper<FcContract> wrapper = new QueryWrapper<>();
-		wrapper.eq(FcContract.TYPE, type)
-			.eq(BaseEntity.DELETED, false);
-		List<FcContract> list = this.baseService.findByCondition(FcContract.class, wrapper);
-		return list.stream().map(contract->contract.getAddress()).collect(Collectors.toList());
-	}
-
-    /**
-     * 根据address查找
-     * @param address
-     * @return
-     */
-	public FcContract findByAddress(String address) {
-		QueryWrapper<FcContract> wrapper = new QueryWrapper<>();
-		wrapper.eq(FcContract.ADDRESS, address)
-			.eq(BaseEntity.DELETED, false);
-		return this.baseService.getByCondition(FcContract.class, wrapper);
-	}
-
-	/**
-	 * @param
-	 * @return
-	 */
+	
 	public List<String> findAllAddress() {
 		QueryWrapper<FcContract> wrapper = new QueryWrapper<>();
-		wrapper.eq(BaseEntity.DELETED, false);
+		wrapper.eq(BaseEntity.DELETED, false).eq(FcContract.IS_ADMIN, true);
 		List<FcContract> list = this.baseService.findByCondition(FcContract.class, wrapper);
 		return list.stream().map(contract->contract.getAddress()).collect(Collectors.toList());
 	}
-
-
-
 }

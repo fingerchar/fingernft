@@ -8,10 +8,10 @@
         <img class="pic-404__child right" src="@/assets/404_images/404_cloud.png" alt="404">
       </div>
       <div class="bullshit">
-        <div class="bullshit__oops">{{$t('set.reminder')}}</div>
-        <div class="bullshit__headline">{{ $t('set.noContent') }}</div>
-        <div class="bullshit__info">{{ $t('set.errorNetworkTip') }}</div>
-        <a href="/" class="bullshit__return-home">{{ $t('set.toHome') }}</a>
+        <div class="bullshit__oops">{{$t('nofound.reminder')}}</div>
+        <div class="bullshit__headline">{{ $t('nofound.noContent') }}</div>
+        <div class="bullshit__info">{{ $t('nofound.errorNetworkTip') }}</div>
+        <a href="/" class="bullshit__return-home">{{ $t('nofound.toHome') }}</a>
       </div>
     </div>
   </div>

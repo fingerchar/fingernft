@@ -1,17 +1,18 @@
 package com.fingerchar.domain;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fingerchar.base.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
 
 /**
  * @Description FcUserFollow
  * @Author 
- * @Date 2021-11-21
+ * @Date 2021-12-11
  * @Version 2.1
  */
-@TableName("fc_user_follow")
+@TableName("`fc_user_follow`")
 public class FcUserFollow extends BaseEntity {
+
 
     /**
      * 用户地址
@@ -20,10 +21,11 @@ public class FcUserFollow extends BaseEntity {
     private String userAddress;
 
     /**
-     * 关注人address
+     * 关注人地址
      */
     @TableField("`following_address`")
     private String followingAddress;
+
 
     public String getUserAddress() {
         return userAddress;
@@ -48,7 +50,7 @@ public class FcUserFollow extends BaseEntity {
     @Override
     public String toString() {
         return "FcUserFollow{" +
-        ", userAddress=" + userAddress +
+        "userAddress=" + userAddress +
         ", followingAddress=" + followingAddress +
         "}";
     }

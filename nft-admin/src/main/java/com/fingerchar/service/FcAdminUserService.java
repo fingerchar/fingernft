@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fingerchar.base.entity.BaseEntity;
 import com.fingerchar.base.service.IBaseService;
@@ -155,6 +156,18 @@ public class FcAdminUserService {
 			list = baseService.findByCondition(FcAdminUser.class, wrapper);
 		}
 		return list;
+	}
+
+	/**
+	 * @param newPassword
+	 * @param id
+	 * @return
+	 */
+	public int updatePwd(String newPassword, Long id) {
+		UpdateWrapper<FcAdminUser> wrapper = new UpdateWrapper<>();
+		wrapper.eq(FcAdminUser.ID, id);
+		wrapper.set(FcAdminUser.PASSWORD, newPassword);
+		return this.baseService.updateByCondition(FcAdminUser.class, wrapper);
 	}
 
 }

@@ -11,7 +11,6 @@ Vue.use(Vuex)
 const vuexLocalStorage = new VuexPersist({
   key: "vuex",
   storage: window.localStorage,
-  // reducer: state => ({app:state.app})
   reducer: state => ({ })
 });
 

@@ -6,5 +6,5 @@ public class RedisConstant {
 	
 	public static final String PAY_TOKEN_PRE = "paytoken-";
 
-	public static final String TOKEN = "token-";
+	public static final String TOKEN_ID = "tokenid-";
 }

@@ -15,7 +15,6 @@ import com.fingerchar.db.base.BaseEntity;
 import com.fingerchar.db.dao.ext.FcOrderLogExtMapper;
 import com.fingerchar.db.domain.FcOrderLog;
 import com.fingerchar.db.domain.FcUser;
-import com.fingerchar.db.domain.FcUserDetails;
 
 @Service
 public class FcUserService {
@@ -84,12 +83,11 @@ public class FcUserService {
 	 * @return
 	 */
 	@Transactional(rollbackFor = Exception.class)
-	public Object updateUser(FcUserDetails details, FcUser user) {
+	public Object updateUser(FcUser user) {
 		if(null == user.getId()) {
 			return ResponseUtil.badArgumentValue();
 		}
 		this.baseService.update(user);
-		this.baseService.update(details);
 		return ResponseUtil.ok();
 	}
 

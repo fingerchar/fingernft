@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.fingerchar.api.constant.RedisConstant;
 import com.fingerchar.api.constant.SysConfConstant;
 import com.fingerchar.api.dto.NftItemsInfo;
 import com.fingerchar.api.dto.UserVo;
@@ -24,9 +23,7 @@ import com.fingerchar.api.service.FcContractNftService;
 import com.fingerchar.api.service.FcContractService;
 import com.fingerchar.api.service.FcNftItemsService;
 import com.fingerchar.api.service.FcOrderService;
-import com.fingerchar.api.service.FcRedisService;
 import com.fingerchar.api.service.FcSystemConfigService;
-import com.fingerchar.api.service.FcUserDetailsService;
 import com.fingerchar.api.service.FcUserFollowService;
 import com.fingerchar.api.service.FcUserLogService;
 import com.fingerchar.api.service.FcUserService;
@@ -45,7 +42,6 @@ import com.fingerchar.db.domain.FcContractNft;
 import com.fingerchar.db.domain.FcNftItems;
 import com.fingerchar.db.domain.FcOrder;
 import com.fingerchar.db.domain.FcUser;
-import com.fingerchar.db.domain.FcUserDetails;
 import com.fingerchar.db.domain.FcUserFollow;
 import com.fingerchar.db.domain.FcUserLog;
 
@@ -58,9 +54,6 @@ public class FcUserController extends BaseController {
 
     @Autowired
     FcUserService userService;
-
-    @Autowired
-    FcUserDetailsService userDetailsService;
 
     @Autowired
     FcContractNftService contractNftService;
@@ -76,9 +69,6 @@ public class FcUserController extends BaseController {
 
     @Autowired
     FcOrderService orderService;
-
-    @Autowired
-    FcRedisService redisService;
 
     @Autowired
     FcSystemConfigService systemConfigService;
@@ -176,14 +166,7 @@ public class FcUserController extends BaseController {
     }
 
     private String getLoginMessage() {
-        Object temp = this.redisService.get(RedisConstant.SYS_CONFIG_PRE + SysConfConstant.LOGIN_MESSAGE);
-        String message = null;
-        if (null != temp) {
-            message = (String) temp;
-        } else {
-            message = this.systemConfigService.get(SysConfConstant.LOGIN_MESSAGE);
-        }
-        return message;
+        return this.systemConfigService.get(SysConfConstant.LOGIN_MESSAGE);
     }
 
     @PostMapping("reload")
@@ -220,12 +203,6 @@ public class FcUserController extends BaseController {
         }
 
         Map<Object, Object> result = new HashMap<Object, Object>();
-        FcUserDetails details = this.userDetailsService.findByUserId(user.getId());
-        if (null == details) {
-            details = new FcUserDetails();
-            details.setUserId(user.getId());
-        }
-        result.put("details", details);
         result.put("user", user);
         return ResponseUtil.ok(result);
     }

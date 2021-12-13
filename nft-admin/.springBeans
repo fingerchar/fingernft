@@ -7,7 +7,7 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
-		<config>java:com.fingerchar.BaseAdminApplication</config>
+		<config>java:com.fingerchar.Application</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

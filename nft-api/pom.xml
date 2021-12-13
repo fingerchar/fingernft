@@ -23,6 +23,5 @@
 		<module>fingernft-db</module>
 		<module>fingernft-core</module>
 		<module>fingernft-api</module>
-		<module>fingernft-event</module>
 	</modules>
 </project>

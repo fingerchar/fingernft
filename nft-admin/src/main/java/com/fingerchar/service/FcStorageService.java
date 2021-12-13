@@ -10,7 +10,6 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fingerchar.base.entity.BaseEntity;
 import com.fingerchar.base.service.IBaseService;
-import com.fingerchar.domain.FcAdminStorage;
 import com.fingerchar.domain.FcStorage;
 
 @Service
@@ -79,10 +78,10 @@ public class FcStorageService {
 		QueryWrapper<FcStorage> wrapper = new QueryWrapper<>();
 
 		if (!StringUtils.isEmpty(key)) {
-			wrapper.eq(FcAdminStorage.KEY, key);
+			wrapper.eq(FcStorage.KEY, key);
 		}
 		if (!StringUtils.isEmpty(name)) {
-			wrapper.like(FcAdminStorage.NAME, name);
+			wrapper.like(FcStorage.NAME, name);
 		}
 
 		wrapper.eq(BaseEntity.DELETED, false);

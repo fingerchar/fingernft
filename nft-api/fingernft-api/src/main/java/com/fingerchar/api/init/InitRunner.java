@@ -1,25 +1,20 @@
 package com.fingerchar.api.init;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
-import com.fingerchar.api.config.KeyProperties;
-import com.fingerchar.api.constant.RedisConstant;
 import com.fingerchar.api.constant.SysConfConstant;
-import com.fingerchar.api.service.FcPayTokenService;
-import com.fingerchar.api.service.FcRedisService;
 import com.fingerchar.api.service.FcSystemConfigService;
+import com.fingerchar.api.service.StorageService;
 import com.fingerchar.api.utils.DappCryptoUtil;
 import com.fingerchar.api.utils.DappWeb3jUtil;
 import com.fingerchar.core.base.service.IBaseService;
-import com.fingerchar.db.domain.FcPayToken;
+import com.fingerchar.core.storage.IpfsStorage;
+import com.fingerchar.core.util.SpringContextUtil;
 
 @Component
 public class InitRunner implements CommandLineRunner {
@@ -27,13 +22,7 @@ public class InitRunner implements CommandLineRunner {
 	private static final Logger logger = LoggerFactory.getLogger(InitRunner.class);
 	
 	@Autowired
-	FcRedisService redisService;
-	
-	@Autowired
 	FcSystemConfigService systemConfigService;
-
-	@Autowired
-	FcPayTokenService payTokenService;
 	
 	@Autowired
 	IBaseService baseService;
@@ -41,46 +30,38 @@ public class InitRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		logger.info("开始初始化数据");
-		this.initSystemConfig();
-		this.initPayToken();
 		this.initKey();
+		this.initIpfs();
 		this.initWeb3j();
 		logger.info("初始化完成...");
 	}
 	
-	private void initSystemConfig() {
-		logger.info("初始化系统配置数据...");
-		Map<String,  String> map = systemConfigService.queryAll();
-		Iterator<String> it = map.keySet().iterator();
-		String key = null;
-		while(it.hasNext()) {
-			key = it.next();
-			if(!this.redisService.set(RedisConstant.SYS_CONFIG_PRE + key, map.get(key))) {
-				logger.error("系统参数=>" + key + "初始化到redis失败!");
-			}
-		}
-		logger.info("初始化系统配置数据完成...");
-	}
-
-	
-	private void initPayToken() {
-		logger.info("初始化支付token数据...");
-		List<FcPayToken> list = this.payTokenService.findAll();
-		int len = list.size();
-		FcPayToken token = null;
-		for(int i=0; i<len; i++) {
-			token = list.get(i);
-			this.redisService.set(RedisConstant.PAY_TOKEN_PRE + token.getAddress(), token);
-		}
-		logger.info("初始化支付token完成...");
-	}
-	
 	private void initKey() {
-		logger.info("初始化密钥数据...");
-		DappCryptoUtil.setKeyPath(KeyProperties.getKeyPath());
-		DappCryptoUtil.setPubKey(KeyProperties.getRsaPubKey());
-		DappCryptoUtil.initKey();
-		logger.info("初始化密钥数据完成...");
+		logger.info("初始化签名key");
+		String mintKey = this.systemConfigService.get(SysConfConstant.MINT_KEY);
+		String transKey = this.systemConfigService.get(SysConfConstant.TRANS_KEY);
+		DappCryptoUtil.setMintKey(mintKey);
+		DappCryptoUtil.setTransKey(transKey);
+		logger.info("初始化签名key完成");
+	}
+	
+	
+	private void initIpfs() {
+		logger.info("初始化ipfs");
+		String host = this.systemConfigService.get(SysConfConstant.IPFS_SERVER_IP);
+		String port = this.systemConfigService.get(SysConfConstant.IPFS_SERVER_PORT);
+		String remoteServer = this.systemConfigService.get(SysConfConstant.IPFS_REMOTE_SERVER);
+		String localPath = this.systemConfigService.get(SysConfConstant.STORAGE_LOCAL_PATH);
+		String requestBase = this.systemConfigService.get(SysConfConstant.STORAGE_REQUEST_BASE);
+		StorageService storageService = SpringContextUtil.getBean(StorageService.class);
+		IpfsStorage storage = new IpfsStorage();
+		storage.setHost(host);
+		storage.setPort(StringUtils.isEmpty(port)? 0 : Integer.valueOf(port));
+		storage.setLoclLocation(StringUtils.isEmpty(localPath) ? "/" : localPath);
+		storage.setRemoteService(remoteServer);
+		storage.setRequestBase(requestBase);
+		storageService.setStorage(storage);
+		logger.info("初始化ipfs完成");
 	}
 	
 	private void initWeb3j() {

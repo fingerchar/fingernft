@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fingerchar.api.constant.ContractType;
-import com.fingerchar.api.constant.RedisConstant;
 import com.fingerchar.api.utils.TokenExchangeCompute;
 import com.fingerchar.core.base.service.IBaseService;
 import com.fingerchar.db.base.BaseEntity;
@@ -20,9 +19,6 @@ public class FcPayTokenService {
 
 	@Autowired
 	IBaseService baseService;
-	
-	@Autowired
-	FcRedisService redisService;
 
 	public List<FcPayToken> findAll() {
 		QueryWrapper<FcPayToken> wrapper = new QueryWrapper<>();
@@ -71,17 +67,10 @@ public class FcPayTokenService {
 	}
 
 	public FcPayToken getPayToken(String address) {
-		FcPayToken token = null;
-		Object temp = this.redisService.get(RedisConstant.PAY_TOKEN_PRE + address);
-		if(null == temp) {
-			QueryWrapper<FcPayToken> wrapper = new QueryWrapper<>();
-			wrapper.eq(FcPayToken.ADDRESS, address)
-				.eq(BaseEntity.DELETED, false);
-			token = this.baseService.getByCondition(FcPayToken.class, wrapper);
-		} else {
-			token = (FcPayToken)temp;
-		}
-		return token;
+		QueryWrapper<FcPayToken> wrapper = new QueryWrapper<>();
+		wrapper.eq(FcPayToken.ADDRESS, address)
+			.eq(BaseEntity.DELETED, false);
+		return this.baseService.getByCondition(FcPayToken.class, wrapper);
 	}
 
 }

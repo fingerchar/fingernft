@@ -39,11 +39,10 @@ public class FcPayTokenService {
 	 * @param address
 	 * @return
 	 */
-	public Object disable(String address) {
+	public Object delete(String address) {
 		UpdateWrapper<FcPayToken> wrapper = new UpdateWrapper<>();
 		wrapper.eq(FcPayToken.ADDRESS, address);
-		wrapper.set(FcPayToken.DELETED, true);
-		this.baseService.updateByCondition(FcPayToken.class, wrapper);
+		this.baseService.deleteByCondition(FcPayToken.class, wrapper);
 		return ResponseUtil.ok();
 	}
 
@@ -63,8 +62,63 @@ public class FcPayTokenService {
 	 * @param payToken
 	 * @return
 	 */
-	public Object saveOrUpdate(FcPayToken payToken) {
-		this.baseService.saveOrUpdate(payToken);
+	public Object update(FcPayToken payToken) {
+		QueryWrapper<FcPayToken> wrapper = new QueryWrapper<>();
+		wrapper.eq(FcPayToken.ADDRESS, payToken.getAddress());
+		FcPayToken temp = this.baseService.getByCondition(FcPayToken.class, wrapper);
+		if(null != temp && !temp.getId().equals(payToken.getId())) {
+			return ResponseUtil.fail(-1, "已有对应的支付币种");
+		}
+		if(null != payToken.getIsDefault() && payToken.getIsDefault() == 1) {
+			wrapper = new QueryWrapper<>();
+			wrapper.eq(FcPayToken.IS_DEFAULT, true);
+			temp = this.baseService.getByCondition(FcPayToken.class, wrapper);
+			if(null != temp && !temp.getId().equals(payToken.getId())) {
+				return ResponseUtil.fail(-1, "已有默认的支付币种");
+			}
+		}
+		if(null != payToken.getType() && payToken.getType() == 0) {
+			wrapper = new QueryWrapper<>();
+			wrapper.eq(FcPayToken.TYPE, 0);
+			temp = this.baseService.getByCondition(FcPayToken.class, wrapper);
+			if(null != temp && !temp.getId().equals(payToken.getId())) {
+				return ResponseUtil.fail(-1, "已设置了主币支付币种");
+			}
+		}
+		this.baseService.update(payToken);
 		return ResponseUtil.ok();
+	}
+	
+	public Object save(FcPayToken payToken) {
+		QueryWrapper<FcPayToken> wrapper = new QueryWrapper<>();
+		wrapper.eq(FcPayToken.ADDRESS, payToken.getAddress());
+		FcPayToken temp = this.baseService.getByCondition(FcPayToken.class, wrapper);
+		if(null != temp) {
+			return ResponseUtil.fail(-1, "已有对应的支付币种");
+		}
+		if(null != payToken.getIsDefault() && payToken.getIsDefault() == 1) {
+			wrapper = new QueryWrapper<>();
+			wrapper.eq(FcPayToken.IS_DEFAULT, true);
+			temp = this.baseService.getByCondition(FcPayToken.class, wrapper);
+			if(null != temp) {
+				return ResponseUtil.fail(-1, "已有默认的支付币种");
+			}
+		}
+		if(null != payToken.getType() && payToken.getType() == 0) {
+			wrapper = new QueryWrapper<>();
+			wrapper.eq(FcPayToken.TYPE, 0);
+			temp = this.baseService.getByCondition(FcPayToken.class, wrapper);
+			if(null != temp) {
+				return ResponseUtil.fail(-1, "已设置了主币支付币种");
+			}
+		}
+		this.baseService.save(payToken);
+		return ResponseUtil.ok();
+	}
+	
+	public List<FcPayToken> findSync() {
+		QueryWrapper<FcPayToken> wrapper = new QueryWrapper<>();
+		wrapper.eq(FcPayToken.DELETED, false);
+		return this.baseService.findByCondition(FcPayToken.class, wrapper);
 	}
 }

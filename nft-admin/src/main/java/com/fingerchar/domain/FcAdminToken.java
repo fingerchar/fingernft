@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 /**
  * @Description FcAdminToken
  * @Author 
- * @Date 2021-11-16
+ * @Date 2021-12-11
  * @Version 2.1
  */
 @TableName("`fc_admin_token`")

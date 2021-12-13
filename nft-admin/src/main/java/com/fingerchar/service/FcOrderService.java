@@ -226,36 +226,34 @@ public class FcOrderService {
 	}
 
 	/**
-	 * 统计交易数量
-	 * 
-	 * @return
-	 */
-	public Map<String, Object> statTransaction(Long staTime) {
-		Map<String, Object> dataMap = new HashMap<>();
-		QueryWrapper<FcOrder> wrapper = new QueryWrapper<>();
-		long oneDay = 24 * 60 * 60;
-		if (null == staTime) {
-			staTime = System.currentTimeMillis() / 1000;
-		}
-		// 24小时交易量
-		wrapper.ge(FcOrder.UPDATE_TIME, staTime).lt(FcOrder.UPDATE_TIME, staTime + oneDay).eq(FcOrder.STATUS, 1);
+     * 统计交易数量
+     * @return
+     */
+    public Map<String,Object> statTransaction(){
+        Map<String,Object> dataMap = new HashMap<>();
+        QueryWrapper<FcOrder> wrapper = new QueryWrapper<>();
+        Long nowTime = System.currentTimeMillis() / 1000;
+        Long staTime = nowTime - nowTime % 3600;
+        //24小时交易量
+        wrapper.ge(FcOrder.UPDATE_TIME, staTime - 24 * 60 * 60).eq(FcOrder.STATUS,1);
 
-		Integer oneDayCounts = baseService.counts(FcOrder.class, wrapper);
-		dataMap.put("oneDayCounts", oneDayCounts);
+        Integer oneDayCounts = baseService.counts(FcOrder.class, wrapper);
+        dataMap.put("oneDayCounts",oneDayCounts);
 
-		// 交易用户数
-		Integer userCounts = fcOrderExtMapper.countUser(wrapper);
-		dataMap.put("userCounts", userCounts);
+        //交易用户数
+        Integer userCounts = fcOrderExtMapper.countUser(wrapper);
+        dataMap.put("userCounts",userCounts);
 
-		// 交易金额
-		QueryWrapper<FcOrder> queryWrapper = new QueryWrapper<>();
-		queryWrapper.and(i -> i.eq("log.type", 4).or().eq("log.type", 8));
-		queryWrapper.ge("fc.update_time", staTime).lt("fc.update_time", staTime + 24 * 60 * 60).eq("fc.status", 1);
-		List<FcOrderLog> dataList = fcOrderExtMapper.getAccumulatedMoney(queryWrapper);
-		BigDecimal accumulatedMoney = this.sumMoney(dataList);
-		dataMap.put("accumulatedMoney", accumulatedMoney);
-		return dataMap;
-	}
+        //交易金额
+        QueryWrapper<FcOrder> queryWrapper = new QueryWrapper<>();
+        queryWrapper.and(i -> i.eq("log.type",4).or().eq("log.type",8));
+        queryWrapper.ge("fc.update_time", staTime - 24 * 60 * 60)
+                .eq("fc.status",1);
+        List<FcOrderLog> dataList = fcOrderExtMapper.getAccumulatedMoney(queryWrapper);
+        BigDecimal accumulatedMoney = this.sumMoney(dataList);
+        dataMap.put("accumulatedMoney",accumulatedMoney);
+        return dataMap;
+    }
 
 	/**
 	 * 计算总价

@@ -7,10 +7,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 /**
  * @Description FcUserToken
  * @Author 
- * @Date 2021-11-21
+ * @Date 2021-12-12
  * @Version 2.1
  */
-@TableName("fc_user_token")
+@TableName("`fc_user_token`")
 public class FcUserToken extends BaseEntity {
 
 

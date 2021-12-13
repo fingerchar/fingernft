@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fingerchar.api.constant.SysConfConstant;
 import com.fingerchar.api.service.FcContractService;
-import com.fingerchar.api.service.FcRedisService;
 import com.fingerchar.api.service.FcSystemConfigService;
 import com.fingerchar.api.service.FcUserService;
 import com.fingerchar.api.utils.DappCryptoUtil;
@@ -26,9 +25,6 @@ public class FcDappNodeControoler extends BaseController {
 	
 	@Autowired
 	FcUserService userService;
-
-	@Autowired
-	FcRedisService redisService;
 	
 	@Autowired
 	FcSystemConfigService configService;

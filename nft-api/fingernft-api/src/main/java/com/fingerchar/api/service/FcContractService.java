@@ -110,6 +110,7 @@ public class FcContractService {
 
 	}
 
+
 	public FcContract getByShort(String shortUrl) {
 		QueryWrapper<FcContract> wrapper = new QueryWrapper<>();
 		wrapper.eq(FcContract.SHORT_URL, shortUrl).eq(FcContract.DELETED, false);

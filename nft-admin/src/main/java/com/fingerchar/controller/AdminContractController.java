@@ -42,7 +42,7 @@ public class AdminContractController extends BaseController {
         if (contract == null) {
             return ResponseUtil.badArgument();
         }
-        boolean ok=contractService.VerifyContract(contract);
+        boolean ok=contractService.verifyContract(contract);
         return ResponseUtil.ok(ok);
     }
 

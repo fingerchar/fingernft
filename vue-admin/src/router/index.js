@@ -100,6 +100,25 @@ export const asyncRouterMap = [{
     }]
   },
   {
+    path: '/paytoken',
+    component: Layout,
+    redirect: 'noredirect',
+    children: [{
+      path: 'paytoken',
+      components: {
+        default: () => import('@/views/paytoken/list')
+      },
+      name: 'paytoken',
+      meta: {
+        title: 'router.paytoken',
+        icon: 'goods',
+        affix: false,
+        perms: ['POST /admin/paytoken/list', 'POST /admin/paytoken/save', 'POST /admin/paytoken/update', 'POST /admin/paytoken/enable', 'POST /admin/paytoken/disable'],
+      }
+    }]
+  },
+ 
+  {
     path: '/nft',
     component: Layout,
     redirect: 'noredirect',
@@ -122,41 +141,22 @@ export const asyncRouterMap = [{
     ]
   },
   {
-    path: '/transactionManagement',
+    path: '/config',
     component: Layout,
     redirect: 'noredirect',
-    name: 'TransactionManagement',
-    meta: {
-      title: 'router.transactionManagement',
-      icon: 'goods'
-    },
     children: [{
-        path: 'message',
-        components: {
-          default: () => import('@/views/transactionManagement/message')
-        },
-        name: 'TransactionMessage',
-        meta: {
-          title: 'router.transactionInformation',
-          icon: 'goods',
-          affix: false,
-          perms: ['POST /admin/statistics/transaction'],
-        }
+      path: 'config',
+      components: {
+        default: () => import('@/views/config/config')
       },
-      {
-        path: 'statistics',
-        components: {
-          default: () => import('@/views/transactionManagement/statistics')
-        },
-        name: 'TransactionStatistics',
-        meta: {
-          title: 'router.transactionStatistics',
-          icon: 'goods',
-          affix: false,
-          perms: ['POST /admin/statistics/transaction'],
-        }
+      name: 'config',
+      meta: {
+        title: 'router.config',
+        icon: 'goods',
+        affix: false,
+        perms: ['POST /admin/config/update', 'POST /admin/config/fetch'],
       }
-    ]
+    }]
   },
   {
     path: '/sys',

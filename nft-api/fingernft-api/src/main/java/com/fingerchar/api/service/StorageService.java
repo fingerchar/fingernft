@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
 
 import com.fingerchar.core.storage.IpfsStorage;
 import com.fingerchar.core.storage.Storage;
@@ -20,22 +21,13 @@ import com.fingerchar.db.domain.FcStorage;
 /**
  * 提供存储服务类，所有存储服务均由该类对外提供
  */
+@Service
 public class StorageService {
 	
-    private String active;
-    
     private Storage storage;
     
     @Autowired
     private FcStorageService fcStorageService;
-
-    public String getActive() {
-        return active;
-    }
-
-    public void setActive(String active) {
-        this.active = active;
-    }
 
     public Storage getStorage() {
         return storage;

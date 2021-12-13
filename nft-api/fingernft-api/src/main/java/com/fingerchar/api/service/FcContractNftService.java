@@ -23,7 +23,6 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fingerchar.api.constant.CommonStatus;
-import com.fingerchar.api.constant.RedisConstant;
 import com.fingerchar.api.constant.SysConfConstant;
 import com.fingerchar.api.dto.ItemOwners;
 import com.fingerchar.api.dto.NftItemsInfo;
@@ -58,9 +57,6 @@ public class FcContractNftService {
 
     @Autowired
     FcNftCategoryExtMapper categoryExtMapper;
-
-    @Autowired
-    FcRedisService redisService;
 
     @Autowired
     private StorageService storageService;
@@ -152,18 +148,13 @@ public class FcContractNftService {
     }
 
     private String getWebSite() {
-        Object obj = this.redisService.get(RedisConstant.SYS_CONFIG_PRE + SysConfConstant.WEB_SITE);
-        if (null == obj) {
-            QueryWrapper<FcSystem> wrapper = new QueryWrapper<>();
-            wrapper.eq(FcSystem.KEY_NAME, SysConfConstant.WEB_SITE);
-            FcSystem system = this.baseService.getByCondition(FcSystem.class, wrapper);
-            if (null == system) {
-                return "";
-            } else {
-                return system.getKeyValue();
-            }
+    	QueryWrapper<FcSystem> wrapper = new QueryWrapper<>();
+        wrapper.eq(FcSystem.KEY_NAME, SysConfConstant.WEB_SITE);
+        FcSystem system = this.baseService.getByCondition(FcSystem.class, wrapper);
+        if (null == system) {
+            return "";
         } else {
-            return (String) obj;
+            return system.getKeyValue();
         }
     }
 
@@ -532,7 +523,7 @@ public class FcContractNftService {
             token = temp.split(":")[0];
             tokenId = temp.split(":")[1];
             nftQWrapper = new QueryWrapper<>();
-            nftQWrapper.eq(FcContractNft.ADDRESS, token).eq(FcContractNft.TOKEN_ID, tokenId);
+            nftQWrapper.eq(FcContractNft.ADDRESS, token).eq(FcContractNft.TOKEN_ID, tokenId).eq(FcContractNft.DELETED, false);
             nft = this.baseService.getByCondition(FcContractNft.class, nftQWrapper);
             if (null == nft || nft.getGetMetaTimes() >= 13) {
                 logger.warn("nft不存在或者已经获取超过13次");

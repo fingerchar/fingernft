@@ -7,15 +7,14 @@ var ExchangeOrdersHolder = artifacts.require("ExchangeOrdersHolder");
 
 module.exports = function(deployer) {
   deployer.then(async () => {
-    const beneficiary = "";
-    const buyerFeeSigner = "";
+    const beneficiary = "0x79aca18162577437cc763e36df07bac6938b0b69";
+    const buyerFeeSigner = "0x364beb2672323691088d9055518b2f750d82eee5";
 
     const tranferProxy = await TransferProxy.deployed();
     const transferProxyForDeprecated = await TransferProxyForDeprecated.deployed();
     const erc20TransferProxy = await ERC20TransferProxy.deployed();
     const exchangeState= await ExchangeState.deployed();
     const exchangeOrderHolder = await ExchangeOrdersHolder.deployed();
-
 
 
     return deployer

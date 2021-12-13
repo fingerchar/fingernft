@@ -7,16 +7,6 @@
 
     <div class="right-menu">
       <template>
-
-        <!--
-        <el-tooltip v-if="device!=='mobile'" :content="$t('navbar.fullScreen')" effect="dark" placement="bottom">
-          <screenfull class="right-menu-item" />
-        </el-tooltip>
-
-        <el-tooltip v-if="device!=='mobile'" :content="$t('navbar.layoutSize')" effect="dark" placement="bottom">
-          <size-select class="right-menu-item" />
-        </el-tooltip>
-        -->
       </template>
       <el-dropdown class="avatar-container right-menu-item profileClass" trigger="click">
         <div class="avatar-wrapper">

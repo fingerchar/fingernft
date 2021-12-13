@@ -28,13 +28,13 @@ public class AdminStorageController  extends BaseController {
     private StorageService storageService;
 
     @Autowired
-    private FcStorageService adminStorageService;
+    private FcStorageService fcStorageService;
 
     @RequiresPermissions("admin:storage:list")
     @RequiresPermissionsDesc(menu = {"系统管理", "对象存储"}, button = "查询")
     @PostMapping("/list")
     public Object list(String key, String name, String sort, String order) {
-        IPage<FcStorage> iPage = adminStorageService.querySelective(key, name, this.getPageInfo(), this.isAsc(order), sort);
+        IPage<FcStorage> iPage = fcStorageService.querySelective(key, name, this.getPageInfo(), this.isAsc(order), sort);
         return ResponseUtil.okList(iPage);
     }
 
@@ -78,7 +78,7 @@ public class AdminStorageController  extends BaseController {
     @RequiresAuthentication
     @PostMapping("/read")
     public Object read(@NotNull Long id) {
-        FcStorage storageInfo = adminStorageService.findById(id);
+        FcStorage storageInfo = fcStorageService.findById(id);
         if (storageInfo == null) {
             return ResponseUtil.badArgumentValue();
         }
@@ -90,7 +90,7 @@ public class AdminStorageController  extends BaseController {
     @RequiresAuthentication
     @PostMapping("/update")
     public Object update(FcStorage FcAdminStorage) {
-        if (adminStorageService.update(FcAdminStorage) == 0) {
+        if (fcStorageService.update(FcAdminStorage) == 0) {
             return ResponseUtil.updatedDataFailed();
         }
         return ResponseUtil.ok(FcAdminStorage);
@@ -104,7 +104,7 @@ public class AdminStorageController  extends BaseController {
         if (StringUtils.isEmpty(key)) {
             return ResponseUtil.badArgument();
         }
-        adminStorageService.deleteByKey(key);
+        fcStorageService.deleteByKey(key);
         return ResponseUtil.ok();
     }
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,16 +40,22 @@ public class FcNftLikeService {
 			.in(FcNftLike.NFT_ID, nftIds)
 			.eq(BaseEntity.DELETED, false);
 		List<FcNftLike> likeList = this.baseService.findByCondition(FcNftLike.class, wrapper);
-		List<String> Lists = new ArrayList<>(likeList.size());
-		for (FcNftLike fcNftLike : likeList) {
-			FcContractNft fcContractNft = this.baseService.getById(FcContractNft.class, fcNftLike.getNftId());
-			String likeStr = "";
-			if (fcContractNft != null) {
-				likeStr = fcContractNft.getAddress() + ":" + fcContractNft.getTokenId().toString();
-			}
-			Lists.add(likeStr);
+		if(likeList.isEmpty()) {
+			return new ArrayList<>();
 		}
-		return Lists;
+		Set<Long> likeNftIds = likeList.stream().map(FcNftLike::getNftId).collect(Collectors.toSet());
+		QueryWrapper<FcContractNft> nftWrapper = new QueryWrapper<>();
+		nftWrapper.in(FcContractNft.ID, likeNftIds)
+			.eq(FcContractNft.IS_SYNC, true);
+		List<FcContractNft> nftList = this.baseService.findByCondition(FcContractNft.class, nftWrapper);
+		if(nftList.isEmpty()) {
+			return new ArrayList<>();
+		}
+		List<String> lists = new ArrayList<>(nftList.size());
+		for (FcContractNft nft : nftList) {
+			lists.add(nft.getAddress() + ":" + nft.getTokenId());
+		}
+		return lists;
 	}
 
 	@Transactional(rollbackFor = Exception.class)

@@ -7,10 +7,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 /**
  * @Description FcUser
  * @Author 
- * @Date 2021-11-21
+ * @Date 2021-12-12
  * @Version 2.1
  */
-@TableName("fc_user")
+@TableName("`fc_user`")
 public class FcUser extends BaseEntity {
 
 

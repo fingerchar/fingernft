@@ -44,13 +44,13 @@ public class FcOrderService {
     FcNoticeService noticeService;
 
     @Autowired
-    FcRedisService redisService;
-
-    @Autowired
     FcPayTokenService payTokenService;
 
     @Autowired
     FcSystemConfigService configService;
+    
+    @Autowired
+    FcOrderCacheService orderCacheService;
 
     @Autowired
     IBaseService baseService;
@@ -217,8 +217,8 @@ public class FcOrderService {
                 this.noticeService.insertNotice(content, itemsList.get(i).getItemOwner(), type.toString(), nft.getImgUrl(), nft.getName(), noticeType, user.getAddress());
             }
         }
-
-        this.redisService.del(user.getAddress());
+        
+        this.orderCacheService.del(user.getAddress());
         this.baseService.save(log);
         return ResponseUtil.ok();
     }
@@ -372,7 +372,7 @@ public class FcOrderService {
         }
 
         this.baseService.save(log);
-        this.redisService.del(user.getAddress());
+        this.orderCacheService.del(user.getAddress());
         return ResponseUtil.ok();
     }
 
@@ -411,10 +411,10 @@ public class FcOrderService {
         info.setSalt(signOrder.getSalt());
         boolean flag = false;
         if (info.getType() == 1 || info.getType() == 2) {
-            flag = this.redisService.set(user.getAddress() + info.getSellToken() + info.getSellTokenId(), info, 1800L);
+        	flag = this.orderCacheService.add(user.getAddress() + info.getSellToken() + info.getSellTokenId(), JSON.toJSONString(info));
         }
         if (info.getType() == 5 || info.getType() == 6) {
-            flag = this.redisService.set(user.getAddress() + info.getBuyToken() + info.getBuyTokenId(), info, 1800L);
+        	flag = this.orderCacheService.add(user.getAddress() + info.getBuyToken() + info.getBuyTokenId(), JSON.toJSONString(info));
         }
         if (flag) {
             return ResponseUtil.ok(info);
@@ -492,7 +492,7 @@ public class FcOrderService {
         info.setV(signOrder.getV());
         info.setSalt(signOrder.getSalt());
         info.setBuyFee(buyFee.toString());
-        if (this.redisService.set(user.getAddress(), info, 1800L)) {
+        if (this.orderCacheService.add(user.getAddress(), JSON.toJSONString(info))) {
             return ResponseUtil.ok(info);
         } else {
             return ResponseUtil.serious();

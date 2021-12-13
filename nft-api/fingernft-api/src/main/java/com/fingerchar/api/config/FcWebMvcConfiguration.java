@@ -1,14 +1,10 @@
 package com.fingerchar.api.config;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.fingerchar.api.annotation.support.LoginUserHandlerMethodArgumentResolver;
 import com.fingerchar.api.constant.SysConfConstant;
 
 
@@ -19,8 +15,6 @@ public class FcWebMvcConfiguration implements WebMvcConfigurer {
     private TokenInterceptor tokenInterceptor;
     @Autowired
     private OptionalTokenInterceptor optionalTokenInterceptor;
-
-    private static final String SWAGGER_PATH_PATTERN = "/swagger*/**";
 
     private static final String[] NOT_NEED_LOGIN_PATH = {
 		 SysConfConstant.URL_PREFIX + "/user/login",
@@ -64,21 +58,15 @@ public class FcWebMvcConfiguration implements WebMvcConfigurer {
          SysConfConstant.URL_PREFIX + "/notices/countunread",
          SysConfConstant.URL_PREFIX + "/notices/list",
          SysConfConstant.URL_PREFIX + "/notices/count",
+         SysConfConstant.URL_PREFIX + "/refresh/refreshconfig",
     };
-
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new LoginUserHandlerMethodArgumentResolver());
-    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //指定必选token的接口（需要登录）
         registry.addInterceptor(tokenInterceptor)
-                .excludePathPatterns(NOT_NEED_LOGIN_PATH)
-                .excludePathPatterns(SWAGGER_PATH_PATTERN);
+                .excludePathPatterns(NOT_NEED_LOGIN_PATH);
         //可选token接口（可不登录）
-        registry.addInterceptor(optionalTokenInterceptor)
-                .excludePathPatterns(SWAGGER_PATH_PATTERN);
+        registry.addInterceptor(optionalTokenInterceptor);
     }
 }

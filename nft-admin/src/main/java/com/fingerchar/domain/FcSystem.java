@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 /**
  * @Description FcSystem
  * @Author 
- * @Date 2021-11-16
+ * @Date 2021-12-12
  * @Version 2.1
  */
 @TableName("`fc_system`")
@@ -26,6 +26,12 @@ public class FcSystem extends BaseEntity {
     @TableField("`key_value`")
     private String keyValue;
 
+    /**
+     * 是否在前台显示
+     */
+    @TableField("`show`")
+    private Boolean show;
+
 
     public String getKeyName() {
         return keyName;
@@ -43,15 +49,26 @@ public class FcSystem extends BaseEntity {
         this.keyValue = keyValue;
     }
 
+    public Boolean getShow() {
+        return show;
+    }
+
+    public void setShow(Boolean show) {
+        this.show = show;
+    }
+
     public static final String KEY_NAME = "`key_name`";
 
     public static final String KEY_VALUE = "`key_value`";
+
+    public static final String SHOW = "`show`";
 
     @Override
     public String toString() {
         return "FcSystem{" +
         "keyName=" + keyName +
         ", keyValue=" + keyValue +
+        ", show=" + show +
         "}";
     }
 }

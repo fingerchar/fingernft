@@ -91,6 +91,24 @@ export default {
       method: 'post',
     }
   },
+  paytoken: {
+    list: {
+      url: "/paytoken/list",
+      method: "post",
+    },
+    create:{
+      url: "/paytoken/create",
+      method: "post",
+    },
+    update: {
+      url: "/paytoken/update",
+      method: "post",
+    },
+    delete: {
+      url: "/paytoken/delete",
+      method: "post",
+    },
+  },
   contract: {
     list: {
       url: "/contract/list",
@@ -189,6 +207,10 @@ export default {
     },
     deleteAdmin:{
       url: '/adminuser/delete',
+      method: 'post',
+    },
+    setpwd: {
+      url: '/adminuser/setpwd',
       method: 'post',
     },
   },
@@ -330,7 +352,11 @@ export default {
     fetch: {
       url: '/config/fetch',
       method: 'post'
-    }
+    },
+    update: {
+      url: '/config/update',
+      method: 'post',
+    },
   },
   storage: {
     create: {

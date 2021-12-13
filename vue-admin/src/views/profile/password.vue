@@ -14,28 +14,22 @@
     </el-form>
     <div class="ml-100px" >
       <el-button @click="cancel">{{$t('util.cancel')}}</el-button>
-      <el-button type="primary" >{{$t('util.confirm')}}</el-button>
+      <el-button @click="change" type="primary" >{{$t('util.confirm')}}</el-button>
     </div>
   </div>
 </template>
 
 <script>
-// import { changePassword } from '@/api/profile'
 
 export default {
   name: "ChangePassword",
   data() {
-    // var validatePassOld=(rule,value,callback) =>{
-    //   if(value!=1){
-    //       callback(new Error("原密码不正确"));
-    //   }
-    // };
     var validatePass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请输入密码"));
+        callback(new Error(this.$t('profile.emptyPassword')));
       } 
-      else if(value.length<6){
-        callback(new Error("密码长度不能小于6位"));
+      else if(value.length < 6){
+        callback(new Error(this.$t('profile.limitPassword')));
       }
       else {
         callback();
@@ -43,9 +37,9 @@ export default {
     };
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请再次输入密码"));
+        callback(new Error(this.$t('profile.resetPassword')));
       } else if (value !== this.dataForm.newPassword) {
-        callback(new Error("两次输入密码不一致!"));
+        callback(new Error(this.$t('profile.unsamePassword')));
       } else {
         callback();
       }
@@ -58,15 +52,14 @@ export default {
       },
       rules: {
         oldPassword: [
-          { required: true, message: "旧密码不能为空", trigger: "blur" },
-          // { validator: validatePassOld, trigger: "blur" },
+          { required: true, message: this.$t('profile.emptyOldPassword'), trigger: "blur" },
         ],
         newPassword: [
-          { required: true, message: "新密码不能为空", trigger: "blur" },
+          { required: true, message: this.$t('profile.emptyNewPassword'), trigger: "blur" },
           { validator: validatePass, trigger: "blur" },
         ],
         newPassword2: [
-          { required: true, message: "确认密码不能为空", trigger: "blur" },
+          { required: true, message: this.$t('profile.emptyConfirmPassword'), trigger: "blur" },
           { validator: validatePass2, trigger: "blur" },
         ],
       },
@@ -83,24 +76,30 @@ export default {
         this.$refs["dataForm"].clearValidate();
       });
     },
-    // change() {
-    //   this.$refs['dataForm'].validate((valid) => {
-    //     if (!valid) {
-    //       return
-    //     }
-    //     changePassword(this.dataForm).then(response => {
-    //       this.$notify.success({
-    //         title: '成功',
-    //         message: '修改密码成功'
-    //       })
-    //     }).catch(response => {
-    //       this.$notify.error({
-    //         title: '失败',
-    //         message: response.data.errmsg
-    //       })
-    //     })
-    //   })
-    // }
+    change() {
+      this.$refs['dataForm'].validate((valid) => {
+        if (!valid) return
+        this.$api('admin.setpwd', this.dataForm).then((response) => {
+          if(this.$tool.checkResponse(response)){
+            this.$notify.success({
+              title: this.$t('global.success'),
+              message: this.$t('profile.changeSuccess'),
+            })
+            this.cancel();
+          }else{
+            this.$notify.error({
+              title: this.$t('global.fail'),
+              message: response.errmsg
+            })
+          }
+        }).catch(response => {
+          this.$notify.error({
+            title: this.$t('global.fail'),
+            message: response.errmsg
+          })
+        })
+      })
+    }
   },
 };
 </script>

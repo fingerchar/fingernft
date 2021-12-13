@@ -44,12 +44,13 @@ module.exports = {
     },
     proxy: {
       '/admin': {
-        target: "https://adminv2.fingerchar.com",
-        // target: "http://192.168.1.12:8081",
+        // target: "https://admin.fingerchar.com",
+        target: "http://192.168.1.8:8081",
         changeOrigin: true,
       },
       "/static":{
-        target: "https://adminv2.fingerchar.com",
+        // target: "https://admin.fingerchar.com",
+        target: "http://192.168.1.8:8081",
         changeOrigin: true,
       },
     }

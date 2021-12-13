@@ -7,10 +7,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 /**
  * @Description FcUserLog
  * @Author 
- * @Date 2021-11-21
+ * @Date 2021-12-12
  * @Version 2.1
  */
-@TableName("fc_user_log")
+@TableName("`fc_user_log`")
 public class FcUserLog extends BaseEntity {
 
 
@@ -33,7 +33,7 @@ public class FcUserLog extends BaseEntity {
     private String ip;
 
     /**
-     * 操作动作（1:登录）
+     * 操作动作
      */
     @TableField("`action`")
     private String action;

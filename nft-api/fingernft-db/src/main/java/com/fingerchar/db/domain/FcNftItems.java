@@ -8,10 +8,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 /**
  * @Description FcNftItems
  * @Author 
- * @Date 2021-11-21
+ * @Date 2021-12-12
  * @Version 2.1
  */
-@TableName("fc_nft_items")
+@TableName("`fc_nft_items`")
 public class FcNftItems extends BaseEntity {
 
 
@@ -95,7 +95,7 @@ public class FcNftItems extends BaseEntity {
 
     @TableField("`is_sync`")
     private Boolean isSync;
-    
+
     @TableField("`token_id`")
     private String tokenId;
 
@@ -229,14 +229,14 @@ public class FcNftItems extends BaseEntity {
     }
 
     public String getTokenId() {
-		return tokenId;
-	}
+        return tokenId;
+    }
 
-	public void setTokenId(String tokenId) {
-		this.tokenId = tokenId;
-	}
+    public void setTokenId(String tokenId) {
+        this.tokenId = tokenId;
+    }
 
-	public static final String NFT_ID = "`nft_id`";
+    public static final String NFT_ID = "`nft_id`";
 
     public static final String NAME = "`name`";
 
@@ -267,7 +267,7 @@ public class FcNftItems extends BaseEntity {
     public static final String ADDRESS = "`address`";
 
     public static final String IS_SYNC = "`is_sync`";
-    
+
     public static final String TOKEN_ID = "`token_id`";
 
     @Override

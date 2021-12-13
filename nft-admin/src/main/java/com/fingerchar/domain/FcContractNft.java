@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 /**
  * @Description FcContractNft
  * @Author 
- * @Date 2021-11-16
+ * @Date 2021-12-11
  * @Version 2.1
  */
 @TableName("`fc_contract_nft`")
@@ -151,18 +151,6 @@ public class FcContractNft extends BaseEntity {
      */
     @TableField("`get_meta_times`")
     private Integer getMetaTimes;
-
-    /**
-     * 查看次数
-     */
-    @TableField("`view_nums`")
-    private Long viewNums;
-
-    /**
-     * 锁定时长
-     */
-    @TableField("`lock_time`")
-    private Long lockTime;
 
 
     public Long getContractId() {
@@ -349,22 +337,6 @@ public class FcContractNft extends BaseEntity {
         this.getMetaTimes = getMetaTimes;
     }
 
-    public Long getViewNums() {
-        return viewNums;
-    }
-
-    public void setViewNums(Long viewNums) {
-        this.viewNums = viewNums;
-    }
-
-    public Long getLockTime() {
-        return lockTime;
-    }
-
-    public void setLockTime(Long lockTime) {
-        this.lockTime = lockTime;
-    }
-
     public static final String CONTRACT_ID = "`contract_id`";
 
     public static final String ADDRESS = "`address`";
@@ -411,10 +383,6 @@ public class FcContractNft extends BaseEntity {
 
     public static final String GET_META_TIMES = "`get_meta_times`";
 
-    public static final String VIEW_NUMS = "`view_nums`";
-
-    public static final String LOCK_TIME = "`lock_time`";
-
     @Override
     public String toString() {
         return "FcContractNft{" +
@@ -441,8 +409,6 @@ public class FcContractNft extends BaseEntity {
         ", metadataUrl=" + metadataUrl +
         ", metadataContent=" + metadataContent +
         ", getMetaTimes=" + getMetaTimes +
-        ", viewNums=" + viewNums +
-        ", lockTime=" + lockTime +
         "}";
     }
 }

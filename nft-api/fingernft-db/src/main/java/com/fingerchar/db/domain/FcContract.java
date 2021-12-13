@@ -7,10 +7,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 /**
  * @Description FcContract
  * @Author 
- * @Date 2021-11-21
+ * @Date 2021-12-12
  * @Version 2.1
  */
-@TableName("fc_contract")
+@TableName("`fc_contract`")
 public class FcContract extends BaseEntity {
 
 
@@ -92,6 +92,9 @@ public class FcContract extends BaseEntity {
     @TableField("`last_token_id`")
     private Long lastTokenId;
 
+    /**
+     * 封面
+     */
     @TableField("`banner_url`")
     private String bannerUrl;
 
@@ -106,6 +109,18 @@ public class FcContract extends BaseEntity {
      */
     @TableField("`is_royalties`")
     private Boolean isRoyalties;
+
+    /**
+     * 签名人账号
+     */
+    @TableField("`signer`")
+    private String signer;
+
+    /**
+     * 是否已经同步
+     */
+    @TableField("`is_sync`")
+    private Boolean isSync;
 
 
     public String getName() {
@@ -236,6 +251,22 @@ public class FcContract extends BaseEntity {
         this.isRoyalties = isRoyalties;
     }
 
+    public String getSigner() {
+        return signer;
+    }
+
+    public void setSigner(String signer) {
+        this.signer = signer;
+    }
+
+    public Boolean getIsSync() {
+        return isSync;
+    }
+
+    public void setIsSync(Boolean isSync) {
+        this.isSync = isSync;
+    }
+
     public static final String NAME = "`name`";
 
     public static final String SYMBOL = "`symbol`";
@@ -268,6 +299,10 @@ public class FcContract extends BaseEntity {
 
     public static final String IS_ROYALTIES = "`is_royalties`";
 
+    public static final String SIGNER = "`signer`";
+
+    public static final String IS_SYNC = "`is_sync`";
+
     @Override
     public String toString() {
         return "FcContract{" +
@@ -287,6 +322,8 @@ public class FcContract extends BaseEntity {
         ", bannerUrl=" + bannerUrl +
         ", getInfoTimes=" + getInfoTimes +
         ", isRoyalties=" + isRoyalties +
+        ", signer=" + signer +
+        ", isSync=" + isSync +
         "}";
     }
 }
