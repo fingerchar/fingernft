@@ -1,4 +1,4 @@
-var HDWalletProvider = require("truffle-hdwallet-provider");
+// var HDWalletProvider = require("truffle-hdwallet-provider");
 
 
 module.exports = {

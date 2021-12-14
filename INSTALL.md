@@ -417,6 +417,14 @@ server
 
 智能合约在nft-contract
 
+#### 编译合约
+
+```
+npm install truffle -g
+cd nft-contract
+truffle compile
+```
+
 ### 安装依赖包
 
 ```
@@ -427,6 +435,7 @@ yarn // 安装依赖包
 
 你可以用truffle脚本部署，也可以用我们已经写好的部署脚本，这里只讲使用脚本部署合约。
 部署脚本在migrations文件夹中,
+
 
 #### 配置脚本
 ```
