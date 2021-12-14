@@ -218,7 +218,7 @@ public class FcOrderService {
             }
         }
         
-        this.orderCacheService.del(user.getAddress());
+        this.orderCacheService.del(user.getAddress() + order.getBuyerToken() + order.getBuyerTokenId());
         this.baseService.save(log);
         return ResponseUtil.ok();
     }
@@ -372,7 +372,7 @@ public class FcOrderService {
         }
 
         this.baseService.save(log);
-        this.orderCacheService.del(user.getAddress());
+        this.orderCacheService.del(user.getAddress() + order.getSellToken() + order.getSellTokenId());
         return ResponseUtil.ok();
     }
 
