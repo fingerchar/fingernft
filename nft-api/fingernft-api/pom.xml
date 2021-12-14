@@ -71,13 +71,6 @@
 			<artifactId>fingernft-core</artifactId>
 			<version>0.1.0</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>com.fingerchar</groupId>
-			<artifactId>fingerchar-encry</artifactId>
-			<version>0.1.0</version>
-			<type>jar</type>
-		</dependency>
 	</dependencies>
 
 	<build>
