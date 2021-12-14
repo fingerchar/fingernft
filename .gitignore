@@ -6,7 +6,6 @@ package-lock.json
 yarn.lock
 
 t.md
-scripts
 
 # local env files
 .env.local
