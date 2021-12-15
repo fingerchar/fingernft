@@ -22,6 +22,14 @@ http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 ">
             </includes>
             <outputDirectory>/lib</outputDirectory>
         </fileSet>
+        
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources</directory>
+            <includes>
+                <include>application.yml</include>
+            </includes>
+            <outputDirectory>/</outputDirectory>
+        </fileSet>
 
         <fileSet>
             <directory>${project.basedir}/bin</directory>
