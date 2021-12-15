@@ -15,6 +15,7 @@
     "@truffle/contract": "^4.4.0",
     "@truffle/hdwallet-provider": "^2.0.0",
     "fs": "0.0.1-security",
+    "solc": "^0.8.0",
     "web3": "^1.6.1"
   }
 }

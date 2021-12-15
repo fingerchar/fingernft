@@ -417,19 +417,20 @@ server
 
 智能合约在nft-contract
 
+### 安装依赖包
+
+```
+cd nft-contract
+yarn // 安装依赖包
+```
+
 ### 编译合约
 
 ```
 npm install truffle -g
-cd nft-contract
 truffle compile // 编译成功后，会在nft-contract目录下生成build目录
 ```
 
-### 安装依赖包
-
-```
-yarn // 安装依赖包
-```
 
 ### 配置
 
@@ -470,18 +471,19 @@ node operator.js  //  初始化合约
 
 智能合约在token-contract
 
-#### 编辑合约
-
-```
-npm install truffle -g  // 如果上一步安装过，可以不用安装 
-cd token-contract
-truffle compile // 编译成功后，会在token-contract目录下生成build目录
-```
 
 ### 安装依赖包
 
 ```
+cd token-contract
 yarn
+```
+
+#### 编辑合约
+
+```
+npm install truffle -g  // 如果上一步安装过，可以不用安装 
+truffle compile // 编译成功后，会在token-contract目录下生成build目录
 ```
 
 ### 配置
