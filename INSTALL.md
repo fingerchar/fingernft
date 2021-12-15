@@ -417,12 +417,12 @@ server
 
 智能合约在nft-contract
 
-#### 编译合约
+### 编译合约
 
 ```
 npm install truffle -g
 cd nft-contract
-truffle compile
+truffle compile // 编译成功后，会在nft-contract目录下生成build目录
 ```
 
 ### 安装依赖包
@@ -465,6 +465,57 @@ node operator.js  //  初始化合约
 
 > 注意，犹豫部署过程中会出现网络延迟，导致异常退出，可以重新执行脚本
 
+
+## 创建自己的代币
+
+智能合约在token-contract
+
+#### 编辑合约
+
+```
+npm install truffle -g  // 如果上一步安装过，可以不用安装 
+cd token-contract
+truffle compile // 编译成功后，会在token-contract目录下生成build目录
+```
+
+### 安装依赖包
+
+```
+yarn
+```
+
+### 配置
+
+你可以用truffle脚本部署，也可以用我们已经写好的部署脚本，这里只讲使用脚本部署合约。
+部署脚本在migrations文件夹中,
+
+#### 配置脚本
+```
+cd scripts
+vim config.js
+```
+config.js如下:
+
+```
+module.exports = {
+  privateKey: "",	// 表示私钥
+  apiUrl: "https://rinkeby.infura.io/v3/{token}",	// rinkeby的rpc
+  chainId: 4,	// rinkeby 的network id
+  name: "Finger Token",   // 代币名称
+  symbol: "Finger",   // 代币符号
+  supply: "100000000",    // 发行量
+}
+```
+
+配置好后，执行如下脚本
+
+```
+node deploy.js	// 部署合约
+```
+
+执行成功后，会在本地生成一个json文件: {address}_{network_id}.json, 记录了合约的信息
+
+> 如果你想重新创建代币，记得删除json文件，因为执行deploy.js脚本，会检测json文件，判断是否创建。
 
 
 ## 前端部署

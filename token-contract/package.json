@@ -1,7 +1,7 @@
 {
-  "name": "obt-contract",
+  "name": "token-contract",
   "version": "1.0.0",
-  "description": "cd obt-contract npm i",
+  "description": "cd token-contract npm i",
   "main": "truffle-config.js",
   "directories": {
     "test": "test"
@@ -12,9 +12,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@truffle/contract": "^4.3.40",
-    "@truffle/hdwallet-provider": "^1.6.0",
-    "truffle-hdwallet-provider": "^1.0.17",
+    "@truffle/contract": "^4.4.0",
+    "@truffle/hdwallet-provider": "^2.0.0",
+    "fs": "0.0.1-security",
     "web3": "^1.6.1"
   }
 }
