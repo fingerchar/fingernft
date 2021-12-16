@@ -46,7 +46,21 @@
         <el-link type="info" @click="cancelConfig">{{ $t('global.cancel') }}</el-link>
       </div>
     </div>
-
+    
+    <div class="config-item">
+      <div class="item-label">{{ $t('config.StorageLocalPath')}}</div>
+      <div class="item-value" v-if="edit.name != 'StorageLocalPath' || edit.status != 'edit' ">
+        <div class="show-value">{{ config.StorageLocalPath}}</div>
+        <el-link type="danger" @click="editConfig('StorageLocalPath', config.StorageLocalPath)">{{ $t('global.edit') }}</el-link>
+      </div>
+      <div class="item-value" v-else>
+        <div class="show-value input-value">
+          <el-input v-model="edit.data"></el-input>
+        </div>
+        <el-link class="mr-10" type="primary" @click="updateConfig">{{ $t('global.update') }}</el-link>
+        <el-link type="info" @click="cancelConfig">{{ $t('global.cancel') }}</el-link>
+      </div>
+    </div>
 
     <div class="config-item">
       <div class="item-label">{{ $t('config.IpfsRemoteServer')}}</div>

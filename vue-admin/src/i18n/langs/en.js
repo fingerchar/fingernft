@@ -55,6 +55,7 @@ export default {
     IpfsServerPort: "IPFS port",
     IpfsRemoteServer: "IPFS pin URL",
     LastBlock: "Monitor start block",
+    StorageLocalPath: "Local storage path(Absolute path: '/...')",
   },
   profile:{
     emptyPassword: "Password cannot be empty",

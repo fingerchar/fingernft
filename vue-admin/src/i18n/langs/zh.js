@@ -56,6 +56,7 @@ export default {
     IpfsServerPort: "IPFS端口",
     IpfsRemoteServer: "IPFS持久化URL",
     LastBlock: "监控起始区块",
+    StorageLocalPath: "本地存储路径(绝对路径: '/...')",
   },
   profile:{
     emptyPassword: "密码不能为空",

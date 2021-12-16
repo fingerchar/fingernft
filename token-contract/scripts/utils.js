@@ -31,7 +31,7 @@ module.exports = {
     return await this.readFile(filename);
   },
   async writeJsonFile(filename, data){
-    var _data = JSON.stringify(data);
+    var _data = JSON.stringify(data, null, "  ");
     return await this.writeFile(filename, _data);
   },
 }
