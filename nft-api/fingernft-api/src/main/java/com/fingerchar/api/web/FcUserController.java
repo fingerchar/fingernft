@@ -110,7 +110,7 @@ public class FcUserController extends BaseController {
         List<FcUser> userList = userService.queryUserByAddrAndType(userAddress);
         FcUser user = null;
         if (userList.size() > 1) {
-            return ResponseUtil.serious();
+            return ResponseUtil.fail(-1, "found more then 2 users, please concat service manager");
         } else if (userList.size() == 0) {
             user = new FcUser();
             user.setAddress(userAddress);

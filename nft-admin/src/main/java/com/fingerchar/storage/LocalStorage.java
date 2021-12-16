@@ -1,11 +1,7 @@
 package com.fingerchar.storage;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -14,6 +10,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 
 /**
  * 服务器本地对象存储服务
@@ -35,7 +36,12 @@ public class LocalStorage extends StorageAdaptor {
 
     public void setStoragePath(String storagePath) {
         this.storagePath = storagePath;
-
+        if(!storagePath.startsWith("/")) {
+			Path temp = Paths.get("");
+			String curPath = temp.toFile().getAbsolutePath();
+			curPath = curPath.substring(0, curPath.lastIndexOf(File.separator));
+			storagePath = curPath + File.separator + storagePath;
+		}
         this.rootLocation = Paths.get(storagePath);
         try {
             Files.createDirectories(rootLocation);

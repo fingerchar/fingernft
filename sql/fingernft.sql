@@ -565,7 +565,7 @@ insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`updat
 insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`update_time`,`deleted`) values (18,'IpfsRemoteServer','',0,1625305504,1639367121,0);
 insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`update_time`,`deleted`) values (19,'MintKey','90ee1d135226d036df9582fb570281cf0a6f8421ea881ca5877124bdbd9eb41a',0,1625305504,1639365927,0);
 insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`update_time`,`deleted`) values (20,'TransKey','a81d497b1dc1d91b0c5b326ee546e85dacdc75e64ecbe429643d3a7ad4512285',0,1625305504,1639365935,0);
-insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`update_time`,`deleted`) values (21,'StorageLocalPath','/data/java/static/upload',0,1625305504,1625305504,0);
+insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`update_time`,`deleted`) values (21,'StorageLocalPath','static/upload',0,1625305504,1625305504,0);
 insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`update_time`,`deleted`) values (22,'StorageRequestBase','/static/upload',0,1625305504,1625305504,0);
 
 /*Table structure for table `fc_tx_order` */

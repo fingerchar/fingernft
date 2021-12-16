@@ -6,6 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -24,6 +25,7 @@ public class LocalStorage extends StorageAdaptor {
     private final Log logger = LogFactory.getLog(LocalStorage.class);
 
     private String storagePath;
+    
     private String address;
 
     private Path rootLocation;
@@ -34,7 +36,12 @@ public class LocalStorage extends StorageAdaptor {
 
     public void setStoragePath(String storagePath) {
         this.storagePath = storagePath;
-
+        if(!storagePath.startsWith("/")) {
+        	Path temp = Paths.get("");
+			String curPath = temp.toFile().getAbsolutePath();
+			curPath = curPath.substring(0, curPath.lastIndexOf(File.separator));
+			storagePath = curPath + File.separator + storagePath;
+		}
         this.rootLocation = Paths.get(storagePath);
         try {
             Files.createDirectories(rootLocation);

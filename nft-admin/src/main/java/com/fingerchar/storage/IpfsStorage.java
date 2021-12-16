@@ -42,7 +42,13 @@ public class IpfsStorage extends StorageAdaptor {
 	}
 
 	public void setLoclLocation(String localPath) {
-
+		if(!localPath.startsWith("/")) {
+			Path temp = Paths.get("");
+			String curPath = temp.toFile().getAbsolutePath();
+			curPath = curPath.substring(0, curPath.lastIndexOf(File.separator));
+			localPath = curPath + File.separator + localPath;
+		}
+		logger.info(localPath);
 		IpfsStorage.localLocation = Paths.get(localPath);
 		try {
 			Files.createDirectories(localLocation);
