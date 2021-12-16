@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -382,9 +383,9 @@ public class FcOrderService {
 
     public Object prePare(PrepareOrderInfo info, FcUser user) {
         String sellFee = this.configService.getValue(SysConfConstant.SELLER_FEE);
-        if (null == sellFee) {
+        if (StringUtils.isEmpty(sellFee)) {
             logger.error("系统未设置sell fee");
-            return ResponseUtil.serious();
+            return ResponseUtil.fail(-1, "unset sellFee");
         }
 
         if (null == info.getBuyTokenId()) {
@@ -419,7 +420,7 @@ public class FcOrderService {
         if (flag) {
             return ResponseUtil.ok(info);
         } else {
-            return ResponseUtil.serious();
+            return ResponseUtil.fail(-1, "store order error, please concat system manager");
         }
     }
 
@@ -495,7 +496,7 @@ public class FcOrderService {
         if (this.orderCacheService.add(user.getAddress(), JSON.toJSONString(info))) {
             return ResponseUtil.ok(info);
         } else {
-            return ResponseUtil.serious();
+            return ResponseUtil.fail(-1, "store order error");
         }
     }
 

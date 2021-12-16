@@ -82,7 +82,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Object seriousHandler(Exception e) {
         logger.error(e.getMessage(), e);
-        return ResponseUtil.serious();
+        return ResponseUtil.fail(-1, "system error, please concat system manager");
     }
 
 

@@ -5,11 +5,6 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fingerchar.api.constant.SysConfConstant;
-import com.fingerchar.api.service.FcStorageService;
 import com.fingerchar.api.service.StorageService;
 import com.fingerchar.core.base.controller.BaseController;
 import com.fingerchar.core.util.ResponseUtil;
@@ -33,9 +27,6 @@ public class FcStorageController extends BaseController {
 
     @Autowired
     private StorageService storageService;
-    
-    @Autowired
-    private FcStorageService fcStorageService;
 
 
     /**
@@ -52,7 +43,7 @@ public class FcStorageController extends BaseController {
         String originalFilename = file.getOriginalFilename();
         FcStorage fcStorage = storageService.store(file.getInputStream(), file.getSize(), file.getContentType(), originalFilename);
         if(null == fcStorage) {
-        	return ResponseUtil.fail();
+        	return ResponseUtil.fail(-1, "upload fail, please check ipfs server is ok or not");
         } else {
         	return ResponseUtil.ok(fcStorage);        	
         }
@@ -75,62 +66,9 @@ public class FcStorageController extends BaseController {
     	}
     	List<FcStorage> list = storageService.store(inputStreams, contentLengths, contentTypes, fileNames);
         if(null == list) {
-        	return ResponseUtil.fail();
+        	return ResponseUtil.fail(-1, "upload fail, please check ipfs server is ok or not");
         } else {
         	return ResponseUtil.ok(list);        	
         }
     }
-
-    /**
-     * 访问存储对象
-     *
-     * @param key 存储对象key
-     * @return
-     */
-    @PostMapping("/fetch/{key:.+}")
-    public ResponseEntity<Resource> fetch(@PathVariable String key) {
-    	FcStorage fcStorage = fcStorageService.findByKey(key);
-        if (key == null) {
-            return ResponseEntity.notFound().build();
-        }
-        if (key.contains("../")) {
-            return ResponseEntity.badRequest().build();
-        }
-        String type = fcStorage.getType();
-        MediaType mediaType = MediaType.parseMediaType(type);
-
-        Resource file = storageService.loadAsResource(key);
-        if (file == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().contentType(mediaType).body(file);
-    }
-
-    /**
-     * 访问存储对象
-     *
-     * @param key 存储对象key
-     * @return
-     */
-    @PostMapping("/download/{key:.+}")
-    public ResponseEntity<Resource> download(@PathVariable String key) {
-    	FcStorage fcStorage = fcStorageService.findByKey(key);
-        if (key == null) {
-            return ResponseEntity.notFound().build();
-        }
-        if (key.contains("../")) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        String type = fcStorage.getType();
-        MediaType mediaType = MediaType.parseMediaType(type);
-
-        Resource file = storageService.loadAsResource(key);
-        if (file == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().contentType(mediaType).header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-    }
-
 }
