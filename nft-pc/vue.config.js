@@ -54,13 +54,11 @@ module.exports = {
         disableHostCheck: false,
         proxy: {
             '/fingernft': {
-                // target: 'https://fingernft.fingerchar.com',
-              target: 'http://192.168.1.8:20004',
+              target: 'https://fingernft.fingerchar.com',
             },
             "/static":{
-              //  target: 'https://fingernft.fingerchar.com',
-              target: 'http://192.168.1.8:20004',
-                changeOrigin: true,
+              target: 'https://fingernft.fingerchar.com',
+              changeOrigin: true,
             },
         },
     },

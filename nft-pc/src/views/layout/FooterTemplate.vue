@@ -37,6 +37,38 @@
             {{ $t("navigation.following") }}
           </router-link>
 
+          <div class="language-router">
+
+            <el-popover v-model:visible="languagePopover" placement="top-start" trigger="click"
+              :show-arrow="false" popper-class="footPopover">
+              <template #reference>
+                <div>
+                  <div class="language">{{$t('footer.language')}}</div>
+                  <div class="language-text" v-if="$i18n.locale == 'en'">
+                    English
+                    <span class="iconfont icon-arrow-right"></span>
+                  </div>
+                  <div class="language-text" v-if="$i18n.locale == 'zh'">
+                    中文
+                    <span class="iconfont icon-arrow-right"></span>
+                  </div>
+                </div>
+              </template>
+              <div class="popover">
+                <div class="popover-item" @click="languageSelect('English')">
+                  <span>English</span>
+                  <span v-if="$i18n.locale == 'en'" class="iconfont icon-seleted"></span>
+                </div>
+                <div class="popover-item" @click="languageSelect('中文')">
+                  <span>中文</span>
+                  <span v-if="$i18n.locale == 'zh'" class="iconfont icon-seleted"></span>
+                </div>
+              </div>
+            </el-popover>
+          </div>
+
+ 
+
         </div>
       </div>
       <div class="lastSection">
@@ -139,6 +171,19 @@ export default {
     async searchClick() {
       this.$router.push({ name: "Search", query: { keyword: this.searchKey } });
     },
+    languageSelect(parameter) {
+      if (parameter == "English") {
+        this.language = "English";
+        localStorage.setItem("locale", "en");
+        this.$i18n.locale = localStorage.getItem("locale");
+      } else if (parameter == "中文") {
+        this.language = "中文";
+        localStorage.setItem("locale", "zh");
+        this.$i18n.locale = localStorage.getItem("locale");
+      }
+      this.languagePopoverState = false;
+    },
+ 
   },
 };
 </script>
@@ -218,6 +263,40 @@ export default {
     margin-right: 10px;
   }
 }
+
+.language-router{
+  display: flex;
+  flex-direction: column;
+  height: 14px;
+  font-size: 14px;
+  cursor: pointer;
+  .language{
+    opacity: 0.7;
+  }
+  .language-text{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.popover {
+  .popover-item{
+    display: flex;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 30px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .icon-seleted{
+    font-size: 24px;
+    color: $primaryColor;
+    font-weight: bold;
+  }
+}
+
 
 .header-search{
   margin-left: 0;
