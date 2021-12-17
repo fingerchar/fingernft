@@ -523,6 +523,8 @@ node deploy.js	// 部署合约
 ## 前端部署
 后台、pc端都一样
 
+后台账号密码: admin 12345678
+
 ```
 yarn  // 安装依赖包
 yarn build
