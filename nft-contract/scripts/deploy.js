@@ -112,6 +112,7 @@ async function deploy(){
     console.log("create NFT721...");
     result = await createNFT721();
     if(result.error){
+      console.log("create NFT721 error", result.error);
       process.exit();
     }
     console.log("create NFT721 address:", result.address);
