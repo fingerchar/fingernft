@@ -63,7 +63,7 @@ public class FcContractController extends BaseController {
             return ResponseUtil.unlogin();
         }
         if (StringUtils.isEmpty(contract.getAddress())) {
-            return ResponseUtil.badArgumentValue();
+            return ResponseUtil.fail(-1, "contract address can not be empty");
         }
         FcUser user = this.userService.getUserByAddress(userAddress);
         if (null == user) {

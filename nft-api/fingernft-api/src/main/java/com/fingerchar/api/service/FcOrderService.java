@@ -70,7 +70,7 @@ public class FcOrderService {
                 result = processBid(order, user, status.getType());
                 break;
             default:
-                result = ResponseUtil.badArgumentValue();
+                result = ResponseUtil.fail(-1, "Unkown order type");
                 break;
         }
         return result;
@@ -79,7 +79,7 @@ public class FcOrderService {
     @Transactional(rollbackFor = Exception.class)
     private Object processBid(OrderInterface inter, FcUser user, Integer type) {
         if (!(inter instanceof PrepareOrderInfo)) {
-            return ResponseUtil.badArgumentValue();
+            return ResponseUtil.fail(-1, "Invalid bid order");
         }
         PrepareOrderInfo info = (PrepareOrderInfo) inter;
         String tokenAddress = info.getBuyToken();
@@ -89,7 +89,7 @@ public class FcOrderService {
         contractWrapper.eq(FcContract.ADDRESS, tokenAddress).eq(BaseEntity.DELETED, false);
         FcContract contract = this.baseService.getByCondition(FcContract.class, contractWrapper);
         if (null == contract) {
-            return ResponseUtil.badArgumentValue();
+            return ResponseUtil.fail(-1, "Invalid buy token, maybe this nft is burn");
         }
 
         QueryWrapper<FcContractNft> nftWrapper = new QueryWrapper<>();
@@ -228,7 +228,7 @@ public class FcOrderService {
     private Object processSell(OrderInterface inter, FcUser user, Integer type) {
 
         if (!(inter instanceof PrepareOrderInfo)) {
-            return ResponseUtil.badArgumentValue();
+            return ResponseUtil.fail(-1, "Invalid sell order");
         }
         PrepareOrderInfo info = (PrepareOrderInfo) inter;
 
@@ -239,7 +239,7 @@ public class FcOrderService {
         contractWrapper.eq(FcContract.ADDRESS, tokenAddress).eq(BaseEntity.DELETED, false);
         FcContract contract = this.baseService.getByCondition(FcContract.class, contractWrapper);
         if (null == contract) {
-            return ResponseUtil.badArgumentValue();
+            return ResponseUtil.fail(-1, "Invalid sell token, maybe this nft is burn");
         }
         QueryWrapper<FcContractNft> nftWrapper = new QueryWrapper<>();
         nftWrapper.eq(FcContractNft.ADDRESS, tokenAddress)

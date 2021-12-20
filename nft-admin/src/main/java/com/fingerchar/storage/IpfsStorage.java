@@ -48,7 +48,6 @@ public class IpfsStorage extends StorageAdaptor {
 			curPath = curPath.substring(0, curPath.lastIndexOf(File.separator));
 			localPath = curPath + File.separator + localPath;
 		}
-		logger.info(localPath);
 		IpfsStorage.localLocation = Paths.get(localPath);
 		try {
 			Files.createDirectories(localLocation);

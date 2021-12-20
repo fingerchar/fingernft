@@ -129,7 +129,7 @@ public class FcUserController extends BaseController {
             user.setLoginType("1");
             if (userService.updateById(user) == 0) {
                 this.packUserLog(LOG_TYPE_AUTH, LOG_ACTION_LOGIN, false, "用户信息更新失败", "");
-                return ResponseUtil.updatedDataFailed();
+                return ResponseUtil.fail(-1, "update user profile failed");
             }
             this.packUserLog(LOG_TYPE_AUTH, LOG_ACTION_LOGIN, true, "用户登录成功", userAddress);
         }
@@ -177,7 +177,7 @@ public class FcUserController extends BaseController {
         }
         FcUser user = this.userService.getUserByAddress(userAddress);
         if (null == user) {
-            return ResponseUtil.unauthz();
+            return ResponseUtil.fail(-1, "Invalid user");
         }
         // 重新授权
         //String token = UserTokenManager.generateToken(user.getAddress());
@@ -219,7 +219,7 @@ public class FcUserController extends BaseController {
         }
         FcUser userByAddress = this.userService.getUserByAddress(userAddress);
         if (userByAddress.getId().longValue() != user.getId().longValue()) {
-            return ResponseUtil.badArgument();
+            return ResponseUtil.fail(-1, "can not update profile to other user");
         }
         userinfo.setId(user.getId());
         userinfo.setLoginType("1");
@@ -321,7 +321,7 @@ public class FcUserController extends BaseController {
     public Object likes(String address) {
         FcUser fcUser = userService.getUserByAddress(address);
         if (fcUser == null) {
-            return ResponseUtil.NotFoud();
+            return ResponseUtil.fail(-1, "Invalid user");
         }
         if (null == address) {
             return ResponseUtil.okList(this.getPageInfo());
@@ -413,7 +413,7 @@ public class FcUserController extends BaseController {
     public Object trade(String address) {
         FcUser fcUser = userService.getUserByAddress(address);
         if (fcUser == null) {
-            return ResponseUtil.NotFoud();
+            return ResponseUtil.fail(-1, "Invalid user");
         }
 
         IPage<FcOrder> fcOrders = orderService.findListByUserAddress(address, this.getPageInfo());
@@ -451,11 +451,11 @@ public class FcUserController extends BaseController {
     @PostMapping("activity")
     public Object activity(String address) {
         if (address == null) {
-            return ResponseUtil.badArgumentValue();
+            return ResponseUtil.fail(-1, "address can not be empty");
         }
         FcUser fcUser = userService.getUserByAddress(address);
         if (fcUser == null) {
-            return ResponseUtil.NotFoud();
+            return ResponseUtil.fail(-1, "Invalid user");
         }
         IPage<FcUserFollow> fcUserFollows = userFollowService.findListByFollowingAddress(fcUser.getAddress(), this.getPageInfo());
         List<String> addrs= fcUserFollows.getRecords().stream().map(FcUserFollow::getUserAddress).collect(Collectors.toList());
@@ -484,11 +484,11 @@ public class FcUserController extends BaseController {
     public Object follows(String address) {
         String userAddress = (String) request.getAttribute("userAddress");
         if (StringUtils.isEmpty(address)) {
-            return ResponseUtil.badArgumentValue();
+            return ResponseUtil.fail(-1, "user address can not be empty");
         }
         FcUser fcUser = userService.getUserByAddress(address);
         if (fcUser == null) {
-            return ResponseUtil.NotFoud();
+            return ResponseUtil.fail(-1, "Invalid user");
         }
         IPage<FcUserFollow> fcUserFollows = userFollowService.findListByFollowingAddress(fcUser.getAddress(), this.getPageInfo());
         if (null == fcUserFollows || fcUserFollows.getRecords().isEmpty()) {

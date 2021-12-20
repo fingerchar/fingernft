@@ -88,7 +88,7 @@ public class FcNoticeController extends BaseController {
 		}
 		FcUser user = this.userService.getUserByAddress(userAddress);
 		if (null == user) {
-			return ResponseUtil.badArgument();
+			return ResponseUtil.fail(-1, "Invalid user");
 		}
 		Integer count = this.noticeService.findCountUnRead(user.getAddress());
 		return ResponseUtil.ok(count);
@@ -101,11 +101,11 @@ public class FcNoticeController extends BaseController {
 			return ResponseUtil.unlogin();
 		}
 		if (id == null) {
-			return ResponseUtil.badArgument();
+			return ResponseUtil.fail(-1, "notice id can not be empty");
 		}
 		FcNotice fcNotice = noticeService.findById(id);
 		if (fcNotice == null) {
-			return ResponseUtil.NotFoud();
+			return ResponseUtil.fail(-1, "can not found this notice");
 		}
 
 		this.noticeService.updateReadByIds(fcNotice);

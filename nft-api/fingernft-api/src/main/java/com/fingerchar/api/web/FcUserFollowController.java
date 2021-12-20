@@ -36,12 +36,12 @@ public class FcUserFollowController extends BaseController {
 			return ResponseUtil.unlogin();
 		}
 		if(null==address){
-			return  ResponseUtil.badArgument();
+			return  ResponseUtil.fail(-1, "user address can not be empty");
 		}
 		FcUser user = userService.getUserByAddress(userAddress);
 		FcUser followingUser = userService.getUserByAddress(address);
 		if(followingUser == null){
-			return ResponseUtil.NotFoud();
+			return ResponseUtil.fail(-1, "Invalid following user");
 		}
 		if(user.getId().longValue() == followingUser.getId().longValue()) {
 			return  ResponseUtil.fail(-1, "Can not follow yourself");
@@ -62,11 +62,11 @@ public class FcUserFollowController extends BaseController {
 			return ResponseUtil.unlogin();
 		}
 		if(address == null){
-			return ResponseUtil.badArgument();
+			return ResponseUtil.fail(-1, "user address can not be empty");
 		}
 		FcUser fcUser=userService.getUserByAddress(address);
 		if(fcUser==null){
-			return ResponseUtil.NotFoud();
+			return ResponseUtil.fail(-1, "Invalid user");
 		}
 		FcUser user = userService.getUserByAddress(userAddress);
 		FcUserFollow fcUserFollow = userFollowService.findByFAddrUAddr(fcUser.getAddress(), user.getAddress());

@@ -85,7 +85,7 @@ public class FcUserService {
 	@Transactional(rollbackFor = Exception.class)
 	public Object updateUser(FcUser user) {
 		if(null == user.getId()) {
-			return ResponseUtil.badArgumentValue();
+			return ResponseUtil.fail(-1, "user id can not be empty");
 		}
 		this.baseService.update(user);
 		return ResponseUtil.ok();

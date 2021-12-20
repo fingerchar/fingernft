@@ -102,15 +102,15 @@ public class FcNftLikeController extends BaseController {
 			return ResponseUtil.unlogin();
 		}
 		if (tokenId == null) {
-			return ResponseUtil.badArgument();
+			return ResponseUtil.fail(-1, "token id can not be empty");
 		}
 		if (StringUtils.isEmpty(address)) {
-			return ResponseUtil.badArgument();
+			return ResponseUtil.fail(-1, "nft address cant not be empty");
 		}
 		FcUser user = this.userService.getUserByAddress(userAddress);
 		FcContractNft fcContractNft = contractNftService.findByAddressTokenId(address, tokenId);
 		if (fcContractNft == null) {
-			return ResponseUtil.NotFoud();
+			return ResponseUtil.fail(-1, "can not found this nft");
 		}
 
 		FcNftLike fcNftLike = nftLikeService.queryByUserIdNftId(fcContractNft.getId(), user.getAddress());
@@ -127,14 +127,14 @@ public class FcNftLikeController extends BaseController {
 			return ResponseUtil.unlogin();
 		}
 		if (tokenId == null) {
-			return ResponseUtil.badArgument();
+			return ResponseUtil.fail(-1, "token id can not be empty");
 		}
 		if (StringUtils.isEmpty(address)) {
-			return ResponseUtil.badArgument();
+			return ResponseUtil.fail(-1, "nft address cant not be empty");
 		}
 		FcContractNft fcContractNft = contractNftService.findByAddressTokenId(address, tokenId);
 		if (fcContractNft == null) {
-			return ResponseUtil.NotFoud();
+			return ResponseUtil.fail(-1, "can not found this nft");
 		}
 		FcUser user = this.userService.getUserByAddress(userAddress);
 		FcNftLike fcNftLike = nftLikeService.queryByUserIdNftId(fcContractNft.getId(), user.getAddress());

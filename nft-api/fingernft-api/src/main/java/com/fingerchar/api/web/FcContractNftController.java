@@ -62,15 +62,15 @@ public class FcContractNftController extends BaseController {
 			return ResponseUtil.unlogin();
 		}
 		if(StringUtils.isEmpty(address)) {
-			return ResponseUtil.badArgumentValue();
+			return ResponseUtil.fail(-1, "nft address can not be empty");
 		}
 		FcContract contract = this.contractService.getByAddress(address);
 		if(null == contract) {
-			return ResponseUtil.badArgumentValue();
+			return ResponseUtil.fail(-1, "Invalid nft address");
 		}
 		FcUser user = this.userService.getUserByAddress(userAddress);
 		if(null == user) {
-			return ResponseUtil.NotFoud();
+			return ResponseUtil.fail(-1, "Invalid user");
 		}
 		if(StringUtils.isEmpty(nft.getRoyalties())) {
 			nft.setRoyalties("");
