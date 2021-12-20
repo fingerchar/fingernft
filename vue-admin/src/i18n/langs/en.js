@@ -319,12 +319,6 @@ export default {
     orderOperation:"order operation",
     otherOperations:"other operations",
     rule3:'Role name cannot be empty',
-    // 登录:'Log in',
-    // 退出:'Log out',
-    // 编辑员工:'edit employees',
-    // 删除员工:'delete employees',
-    // 添加员工:'add employees',
-    //role
     placeholder3:'please enter role name',
     roleName:'role name',
     description:'description',

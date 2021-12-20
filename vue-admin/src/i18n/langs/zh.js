@@ -43,7 +43,7 @@ export default {
     manual: "手动",
     auto: "自动",
     sellerFee: "卖方手续费(万分之一)",
-    buyerFee: "卖方手续费(万分之一)",
+    buyerFee: "买方手续费(万分之一)",
     NFT721: "ERC721地址",
     TransferProxy: "transferProxy地址",
     TransferProxyForDeprecated: "TransferProxyForDeprecated地址",
@@ -386,7 +386,6 @@ export default {
     tip:'提示',
     loadingText:'正在查询中...',
     fail:'失败',
-
   },
   password:{
     oldPassword:'原密码',
