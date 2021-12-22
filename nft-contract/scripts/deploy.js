@@ -4,6 +4,12 @@ var config = require("./config.js");
 var utils = require("./utils.js");
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
+
+if(!config.privateKey){
+  console.log("config.js没有配置privateKey 私钥");
+  process.exit();
+}
+
 const provider = new HDWalletProvider({
   privateKeys: [ config.privateKey ],
   providerOrUrl: config.apiUrl,
@@ -106,7 +112,7 @@ async function deploy(){
   var data = await utils.readJsonFile(filename);
   console.log("data", data);
   console.log("start deploying...");
-  
+
   var result = null;
   if(!data.NFT721){
     console.log("create NFT721...");
