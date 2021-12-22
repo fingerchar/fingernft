@@ -8,7 +8,7 @@
   "private": false,
   "scripts": {
     "dev": "vue-cli-service serve --mode deployment",
-    "build": "node --max_old_space_size=4096 ./node_modules/.bin/vue-cli-service build --mode production",
+    "build": "node --max_old_space_size=4096 ./node_modules/@vue/cli-service/bin/vue-cli-service.js build --mode production",
     "serve": "vue-cli-service serve",
     "start": "vue-cli-service serve --open"
   },
