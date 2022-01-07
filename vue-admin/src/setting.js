@@ -1,4 +1,4 @@
 module.exports = {
-  title: "MOVD ADMIN",
+  title: "FINGERNFT ADMIN",
   limit: 20
 }
