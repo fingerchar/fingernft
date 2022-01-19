@@ -557,7 +557,7 @@ insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`updat
 insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`update_time`,`deleted`) values (10,'StaticPath','https://fingernft.fingerchar.com',1,1619549758,1639365588,0);
 insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`update_time`,`deleted`) values (11,'LastBlock','9806419',0,1619549758,1639381092,0);
 insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`update_time`,`deleted`) values (12,'NftDefaultVerify','1',0,1619549758,1639367101,0);
-insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`update_time`,`deleted`) values (13,'LoginMessage','Welcome. Login Finger NFT Market. This is completely secure and doesn\'t cost anything! %s',1,1619549758,1639365614,0);
+insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`update_time`,`deleted`) values (13,'LoginMessage','Welcome. Login Finger NFT Market. This is completely secure and doesn\'t cost anything!',1,1619549758,1639365614,0);
 insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`update_time`,`deleted`) values (14,'WebSite','https://fingernft.fingerchar.com',1,1619549758,1639365544,0);
 insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`update_time`,`deleted`) values (15,'ChainApiUrl','https://rinkeby-light.eth.linkpool.io/',0,1625305504,1639365649,0);
 insert  into `fc_system`(`id`,`key_name`,`key_value`,`show`,`create_time`,`update_time`,`deleted`) values (16,'IpfsServerIp','43.128.40.5',0,1625305504,1639377765,0);
