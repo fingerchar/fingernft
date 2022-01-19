@@ -102,7 +102,7 @@ export default {
   },
   async loginWallet(address) {
     let timestamp = parseInt(new Date().getTime()/1000);
-    var message = store.state.message + " " + timestamp;
+    var message = store.state.config.LoginMessage + " " + timestamp;
     try {
       let signature = await this.sign(message, address);
       return {

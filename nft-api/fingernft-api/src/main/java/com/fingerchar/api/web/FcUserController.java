@@ -99,9 +99,9 @@ public class FcUserController extends BaseController {
         }
         String loginMessage = this.getLoginMessage();
         if (StringUtils.isEmpty(loginMessage)) {
-            return ResponseUtil.fail(-1, "invalid message");
+            return ResponseUtil.fail(-1, "LoginMessage is empty");
         }
-        loginMessage = String.format(loginMessage, timestamp);
+        loginMessage = loginMessage.concat(" ").concat(timestamp.toString());
         if (!DappCryptoUtil.validate(signature, loginMessage, userAddress)) {
             this.packUserLog(LOG_TYPE_AUTH, LOG_ACTION_LOGIN, false, "无效的签名", "");
             return ResponseUtil.fail(-1, "invalid sign");
