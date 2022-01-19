@@ -6,4 +6,5 @@ module.exports = {
   decimal: 8,
   openseaUrl: "https://testnets.opensea.io/assets/",
   share: {},
+  eip1559: false,
 }

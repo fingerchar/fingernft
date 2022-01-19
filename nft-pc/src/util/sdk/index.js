@@ -3,6 +3,7 @@ var Web3 = require("web3");
 import types from './types';
 import utils from './utils';
 import truffle_contract from '@truffle/contract';
+import store from "@/store";
 import constants from './constants';
 const eth_util = require("ethereumjs-util");
 
@@ -148,6 +149,12 @@ export default {
     var web3 = utils_web3.getWeb3();
     contract.setProvider(web3.currentProvider);
     try{
+      if (store.eip1559) {
+        var gasPrice = await web3.eth.getGasPrice();
+        contract.defaults({
+          gasPrice: gasPrice,
+        });
+      }
       return contract.at(asset.contractAddress);
     }catch(e){
       return {error: e.message};
