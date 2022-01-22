@@ -149,7 +149,7 @@ export default {
     var web3 = utils_web3.getWeb3();
     contract.setProvider(web3.currentProvider);
     try{
-      if (store.eip1559) {
+      if (store.state.eip1559) {
         var gasPrice = await web3.eth.getGasPrice();
         contract.defaults({
           gasPrice: gasPrice,
