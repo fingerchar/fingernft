@@ -14,6 +14,7 @@ import com.fingerchar.service.StorageService;
 import com.fingerchar.storage.IpfsStorage;
 import com.fingerchar.storage.LocalStorage;
 import com.fingerchar.utils.NftDappEventUtils;
+import com.fingerchar.utils.DappWeb3jUtil;
 import com.fingerchar.utils.SpringContextUtil;
 
 @Component
@@ -61,6 +62,7 @@ public class InitRunner implements CommandLineRunner {
 		String url = this.systemConfigService.get(SysConfConstant.CHAIN_API_URL);
 		logger.info("初始化web3j");
 		NftDappEventUtils.initWeb3j(url);
+    DappWeb3jUtil.initWeb3j(url);
 		logger.info("初始化web3j完成");
 	}
 }
