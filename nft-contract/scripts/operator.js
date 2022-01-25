@@ -16,8 +16,24 @@ const truffle_contract = require('@truffle/contract');
 let contract = truffle_contract(abi);
 contract.setProvider(web3.currentProvider);
 
+
+async function getCurrentGasPrice(){
+  try{
+    return await web3.eth.getGasPrice();
+  }catch(e){
+    return { error: e.message };
+  }
+}
+
+
 async function contractAt(address){
   try{
+    var gasPrice = await getCurrentGasPrice();
+    if(gasPrice.error) return gasPrice;
+    contract.defaults({
+      gasPrice: gasPrice,
+    });
+ 
     return await contract.at(address);
   }catch(e){
     return { error: e.message }

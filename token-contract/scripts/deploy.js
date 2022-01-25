@@ -13,15 +13,32 @@ const web3 = new Web3(provider);
 
 const truffle_contract = require('@truffle/contract');
 
-function getContract(abi_name){
+async function getCurrentGasPrice(){
+  try{
+    return await web3.eth.getGasPrice();
+  }catch(e){
+    return { error: e.message };
+  }
+}
+
+
+
+async function getContract(abi_name){
   var abi = require(abi_name);
   var contract = truffle_contract(abi);
   contract.setProvider(web3.currentProvider);
+  var gasPrice = await getCurrentGasPrice();
+  if(gasPrice.error) return gasPrice;
+  contract.defaults({
+    gasPrice: gasPrice,
+  });
+
   return contract;
 }
 
 async function createToken(){
-  var contract = getContract("../build/contracts/Token.json");
+  var contract = await getContract("../build/contracts/Token.json");
+  if(contract.error) return contract;
   try{
     return await contract.new(
       config.name,

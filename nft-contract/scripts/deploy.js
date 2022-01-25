@@ -19,16 +19,32 @@ const web3 = new Web3(provider);
 
 const truffle_contract = require('@truffle/contract');
 
+async function getCurrentGasPrice(){
+  try{
+    return await web3.eth.getGasPrice();
+  }catch(e){
+    return { error: e.message };
+  }
+}
 
-function getContract(abi_name){
+
+
+async function getContract(abi_name){
   var abi = require(abi_name);
   var contract = truffle_contract(abi);
   contract.setProvider(web3.currentProvider);
+  var gasPrice = await getCurrentGasPrice();
+  if(gasPrice.error) return gasPrice;
+  contract.defaults({
+    gasPrice: gasPrice,
+  });
+
   return contract;
 }
 
 async function createNFT721(){
-  var contract = getContract("../build/contracts/NFT721.json");
+  var contract = await getContract("../build/contracts/NFT721.json");
+  if(contract.error) return contract;
   try{
     return await contract.new(
       config.NFTName,
@@ -43,7 +59,8 @@ async function createNFT721(){
 }
 
 async function createTransferProxy(){
-  var contract = getContract("../build/contracts/TransferProxy.json");
+  var contract = await getContract("../build/contracts/TransferProxy.json");
+  if(contract.error) return contract;
   try{
     return await contract.new( {from: provider.addresses[0] });
   }catch(e){
@@ -52,7 +69,8 @@ async function createTransferProxy(){
 }
 
 async function createTransferProxyDeprecated(){
-  var contract = getContract("../build/contracts/TransferProxy.json");
+  var contract = await getContract("../build/contracts/TransferProxy.json");
+  if(contract.error) return contract;
   try{
     return await contract.new( {from: provider.addresses[0] });
   }catch(e){
@@ -61,7 +79,8 @@ async function createTransferProxyDeprecated(){
 }
 
 async function createERC20TransferProxy(){
-  var contract = getContract("../build/contracts/ERC20TransferProxy.json");
+  var contract = await getContract("../build/contracts/ERC20TransferProxy.json");
+  if(contract.error) return contract;
   try{
     return await contract.new( {from: provider.addresses[0] });
   }catch(e){
@@ -70,7 +89,8 @@ async function createERC20TransferProxy(){
 }
 
 async function createExchangeState(){
-  var contract = getContract("../build/contracts/ExchangeState.json");
+  var contract = await getContract("../build/contracts/ExchangeState.json");
+  if(contract.error) return contract;
   try{
     return await contract.new( {from: provider.addresses[0] });
   }catch(e){
@@ -80,7 +100,8 @@ async function createExchangeState(){
 }
 
 async function createOrderHolder(){
-  var contract = getContract("../build/contracts/ExchangeOrdersHolder.json");
+  var contract = await getContract("../build/contracts/ExchangeOrdersHolder.json");
+  if(contract.error) return contract;
   try{
     return await contract.new( {from: provider.addresses[0] });
   }catch(e){
@@ -90,7 +111,8 @@ async function createOrderHolder(){
 }
 
 async function createExchange(data){
-  var contract = getContract("../build/contracts/NftExchange.json");
+  var contract = await getContract("../build/contracts/NftExchange.json");
+  if(contract.error) return contract;
   try{
     return await contract.new(
       data.transferProxy.address,
