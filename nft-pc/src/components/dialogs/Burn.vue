@@ -56,7 +56,7 @@
 
         </div>
         <div class="process-btn">
-          <el-button @click="onCancel" type="primary" v-if="step.burn== 0">{{$t('dialog.burn')}}</el-button>
+          <el-button @click="onSubmit" type="primary" v-if="step.burn== 0">{{$t('dialog.burn')}}</el-button>
           <el-button disabled type="info" v-else-if="step.burn== 1">{{$t('dialog.inProgress')}}</el-button>
           <el-button disabled type="info" v-else>{{$t('dialog.done')}}</el-button>
         </div>
