@@ -197,7 +197,7 @@ export default {
         asset.animUrl = animResult.url;
         asset.storageId = fileResult.id;
         asset.url = fileResult.url;
-        this.storeAsset=asset;
+        this.storeAsset = asset;
       }
     },
     async start() {
@@ -223,7 +223,6 @@ export default {
       this.step.approve = 2;
     },
     async onMint() {
-      console.log(this.storeAsset,'this.storeAsset')
       let asset = this.storeAsset;
       this.step.mint = 1;
       let result = await this.mintToken(asset);

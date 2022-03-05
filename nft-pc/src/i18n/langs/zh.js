@@ -32,6 +32,7 @@ module.exports = {
     confirm: "确认",
     change: "修改",
     approveCollection: "授权这个收藏品",
+    approveToken: "授权这个币种",
     approve: "授权",
     inProgress: "执行中...",
     done: "完成",

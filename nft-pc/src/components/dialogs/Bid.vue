@@ -75,7 +75,7 @@
       <div class="process">
         <div class="step-info">
           <div class="text">
-            <span>{{$t('dialog.approveCollection')}}</span>
+            <span>{{$t('dialog.approveToken')}}</span>
           </div>
           <span v-if="step.approve != 1" :class="step.approve== 2 ? 'finish': ''"
             class="step iconfont icon-seleted"></span>

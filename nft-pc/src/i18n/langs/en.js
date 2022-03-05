@@ -32,6 +32,7 @@ module.exports = {
     confirm: "Confirm",
     change: "Change",
     approveCollection: "Approve this collection",
+    approveToken: "Approve this token",
     approve: "Approve",
     inProgress: "In progress...",
     done: "Done",

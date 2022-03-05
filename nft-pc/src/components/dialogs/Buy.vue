@@ -100,7 +100,7 @@
       <div class="process" v-if="isERC20">
         <div class="step-info">
           <div class="text">
-            <span>{{ $t("dialog.approveCollection") }}</span>
+            <span>{{ $t("dialog.approveToken") }}</span>
           </div>
           <span
             v-if="step.approve != 1"
