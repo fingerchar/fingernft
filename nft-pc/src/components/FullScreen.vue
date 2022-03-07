@@ -2,8 +2,8 @@
 <div class="fullScreen-wrapper">
   <el-dialog  :model-value="visible" :fullscreen="true" :show-close="false" :close-on-click-modal="false" custom-class="fullScreen-class">
     <span @click="exitClick" class="iconfont icon-fullscreen-exit"></span>
-    <nft-preview :preview="true" v-if="visible" :imgUrl="info.imgUrl" :animUrl="info.animUrl" :animation_url="animation_url" :imageIpfs="imageIpfs"></nft-preview>
-    <div class="name">{{info.name}}</div>
+    <nft-preview :preview="true" v-if="visible" :image="uri.image" :animation_url="uri.animation_url"></nft-preview>
+    <div class="name">{{uri.name}}</div>
   </el-dialog>
 </div>
 </template>
@@ -29,18 +29,10 @@ export default {
       type: Boolean,
       default: false,
     },
-    info:{
+    uri:{
       type:Object,
       default:{}
     },
-    animation_url:{
-      type:String,
-      default:''
-    },
-    imageIpfs:{
-      type:String,
-      default:''
-    }
   },
   methods:{
     exitClick(){

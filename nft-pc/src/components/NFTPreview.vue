@@ -1,7 +1,7 @@
 <template>
   <div class="nft-preview">
     <div class="audio-preview" v-if="previewType=='audio'">
-      <el-image :id="audioImgId" class="nft-image fullImage" :src="$filters.fullImageUrl(imageIpfs)" @load="handleResize" >
+      <el-image :id="audioImgId" class="nft-image fullImage" :src="$filters.fullImageUrl(image)" @load="handleResize" >
         <template v-slot:error>
           <el-image class="error-image" :src="require('@/assets/create-img/non-existent.png')" fit="contain"></el-image>
         </template>
@@ -15,11 +15,11 @@
     <div class="video-preview" v-else-if="previewType=='video'">
       <video class="nft-video" :src="$filters.fullImageUrl(animation_url)" autoplay
         :controls="controls" disablePictureInPicture controlslist="nodownload" loop
-        :muted="!preview" :poster="$filters.fullImageUrl(imageIpfs)"
+        :muted="!preview" :poster="$filters.fullImageUrl(image)"
         ></video>
     </div>
     <div class="image-preview" v-else>
-      <el-image class="nft-image fullImage" :src="$filters.fullImageUrl(imageIpfs)">
+      <el-image class="nft-image fullImage" :src="$filters.fullImageUrl(image)">
         <template v-slot:error>
           <el-image class="error-image" :src="require('@/assets/create-img/non-existent.png')" fit="contain"></el-image>
         </template>
@@ -32,11 +32,11 @@
 export default {
   name: "NFTPreview",
   props: {
-    imgUrl: {
+    image: {
       type: String,
       default: "",
     },
-    animUrl: {
+    animation_url: {
       type: String,
       default: ""
     },
@@ -44,14 +44,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    animation_url:{
-      type: String,
-      default:"",
-    },
-    imageIpfs:{
-      type: String,
-      default:"",
-    }
   },
   data(){
     return {
@@ -70,11 +62,11 @@ export default {
   },
   computed: {
     previewType(){
-      if(!this.imgUrl) return;
-      if(!this.animUrl) return "image"
-      if(this.$tools.isAudioUrl(this.animUrl)) return 'audio';
+      if(!this.image) return;
+      if(!this.animation_url) return "image"
+      if(this.$tools.isAudioUrl(this.animation_url)) return 'audio';
 
-      if(this.$tools.isVideoUrl(this.animUrl)) return 'video'
+      if(this.$tools.isVideoUrl(this.animation_url)) return 'video'
     },
   },
   methods: {

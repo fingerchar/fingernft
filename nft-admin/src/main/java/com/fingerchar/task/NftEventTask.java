@@ -63,7 +63,7 @@ public class NftEventTask {
 			}
 			BigInteger start = from.add(BigInteger.ONE);
 	
-			BigInteger end = NftDappEventUtils.getLastBlock().subtract(new BigInteger("2"));
+			BigInteger end = NftDappEventUtils.getLastBlock().subtract(new BigInteger("12"));
 			if(start.compareTo(end) >=0) {
 				return;
 			}

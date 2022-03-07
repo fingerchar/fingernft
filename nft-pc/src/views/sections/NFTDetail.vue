@@ -3,10 +3,8 @@
     <div class="left-section">
       <div class="left-section-image">
         <nft-preview
-          :imgUrl="info.imgUrl"
-          :animUrl="info.animUrl"
+          :image="nftURI.image"
           :animation_url="nftURI.animation_url"
-          :imageIpfs="nftURI.image"
         ></nft-preview>
       </div>
       <div class="left-menus">
@@ -294,10 +292,8 @@
     </burn-dialog>
     <full-screen
       :isFull="isFull"
-      :info="info"
+      :uri="nftURI"
       @exitClick="isFull = false"
-      :animation_url="nftURI.animation_url"
-      :imageIpfs="nftURI.image"
     ></full-screen>
   </div>
   <div class="noFoundclass" v-else>
@@ -400,7 +396,7 @@ export default {
           }
         }
       }
-      return "";
+      return {};
     },
   },
   methods: {
