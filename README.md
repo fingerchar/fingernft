@@ -1,7 +1,7 @@
 ![FingerNFT](https://cdn.fingerchar.com/images/logo.jpg)
 
 ### 什么是FingerNFT
-FingerNFT系统是基于以太坊开发的去中心化NFT市场, FingerNFT借鉴了Rarible智能合约,实现免手续费离线签名，帮助用户在交易NFT的同时，减少手续费消耗。FingerNFT可部署在以太坊、币安、火币、MATIC等流行的公链上。采用流行的Java与Vue语言开发，结合当下流行的后端技术Spring Boot后端框架和主流的前端框架Vue3，移动端采用uniapp技术, 实现前后端分离技术，是技术团队二开NFT市场的不二之选。
+FingerNFT系统是基于以太坊开发的去中心化NFT市场, FingerNFT借鉴了Rarible智能合约,实现免手续费离线签名，帮助用户在交易NFT的同时，减少手续费消耗。FingerNFT可部署在以太坊、币安、火币、MATIC等流行的公链上。采用流行的Java与Vue语言开发，结合当下流行的后端技术Spring Boot后端框架和主流的前端框架Vue3，移动端采用自适应, 支持PC+H5, 实现前后端分离技术，是技术团队二开NFT市场的不二之选。
 FingerNFT具有技术主流、价格低、授权宽松等特点。FingerNFT系统支持各大钱包的dapp浏览器，同时还兼容全球主流的NFT交易市场Opensea和Rarible，在FingerNFT上创建的NFT均可在Opensea等主流平台上售卖，同时其他平台的NFT也可在FingerNFT系统上售卖。目前FingerNFT拥有【开源版】、【基础版】、【盲盒+拍卖版】、【流动性质押版】、【区块链游戏市场(gamefi)版】。
 
 ### 功能
