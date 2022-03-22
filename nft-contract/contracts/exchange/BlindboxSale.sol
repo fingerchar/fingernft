@@ -24,6 +24,7 @@ contract BlindboxSale is Initializable, OwnableUpgradeable{
     mapping (address => uint256) public ownerToHorse;
 
     AggregatorV3Interface internal priceFeed;
+    //asdasd
 
     /**
      * Network: BNB
