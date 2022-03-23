@@ -13,6 +13,17 @@ import "../lib/utils/Ownable.sol";
  */
 contract NFT721 is Ownable, SignerRole, IERC721, ERC721Base {
 
+    address salesContract;
+    
+    modifier onlySalesContract {
+        require(msg.sender == salesContract);
+        _;
+    }
+
+     function setSalesContractAddress(address _salesContract) external onlyOwner{
+        salesContract = _salesContract;
+    }
+
     constructor (string memory name, string memory symbol, address signer, string memory contractURI, string memory tokenURIPrefix) ERC721Base(name, symbol, contractURI, tokenURIPrefix) {
         _registerInterface(bytes4(keccak256('MINT_WITH_ADDRESS')));
         _addSigner(signer);
@@ -27,7 +38,7 @@ contract NFT721 is Ownable, SignerRole, IERC721, ERC721Base {
         _removeSigner(account);
     }
 
-    function mint(uint256 tokenId, uint8 v, bytes32 r, bytes32 s, Fee[] memory _fees, string memory tokenURI) public {
+    function mint(uint256 tokenId, uint8 v, bytes32 r, bytes32 s, Fee[] memory _fees, string memory tokenURI) public onlySalesContract{
         require(isSigner(ecrecover(keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", keccak256(abi.encodePacked(this, tokenId)))), v, r, s)), "owner should sign tokenId");
         _mint(msg.sender, tokenId, _fees);
         _setTokenURI(tokenId, tokenURI);
