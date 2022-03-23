@@ -7,8 +7,11 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
-contract BlindboxSale is Initializable, OwnableUpgradeable{
+contract SalesContract is Initializable, OwnableUpgradeable{
+
+    enum TokenType {Horse, TrainingCenter}
     NFT721 private nft721;
+    HasHorse private hasHorseContract;
 
     // address public token0;
     // address public token1;
@@ -22,9 +25,10 @@ contract BlindboxSale is Initializable, OwnableUpgradeable{
     mapping (uint256 => address) public horseToOwner;
     //address => token id
     mapping (address => uint256) public ownerToHorse;
+    // token id => TokenType
+    mapping (uint256 => uint256) public tokenIdToTokenType;
 
     AggregatorV3Interface internal priceFeed;
-    //asdasd
 
     /**
      * Network: BNB
@@ -32,9 +36,10 @@ contract BlindboxSale is Initializable, OwnableUpgradeable{
      * Address: 0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE
      */
 
-    function __BlindboxSale_init(address _nft721) internal initializer {
+    function __SalesContract_init(address _nft721, address _hasHorseContract) internal initializer {
         __Ownable_init();
         nft721 = NFT721(_nft721);
+        hasHorseContract = HasHorse(_hasHorseContract);
          priceFeed = AggregatorV3Interface(
             0x8993ED705cdf5e84D0a3B754b5Ee0e1783fcdF16 //current is kovan
         );
@@ -55,13 +60,14 @@ contract BlindboxSale is Initializable, OwnableUpgradeable{
         return priceData;
     }
 
-    function buyBox(uint256 latestPrice, uint quantity, uint256[] memory tokenId, uint8 v, bytes32 r, bytes32 s, NFT721.Fee[] memory _fees, string memory tokenURI) external payable {
+    function buyBlindBox(uint256 latestPrice, uint quantity, uint256[] memory tokenId, uint8 v, bytes32 r, bytes32 s, NFT721.Fee[] memory _fees, string memory tokenURI) external payable {
         require(msg.sender != address(0), "Mint to zero address");
         require(tokenId.length == quantity);
         require(msg.value >= latestPrice*quantity, "Insufficient payment");
         payable(owner()).transfer(address(this).balance);
         for (uint256 i; i < quantity; i++) {
             nft721.mint(tokenId[i], v, r, s, _fees, tokenURI);
+            createHorse(tokenId[i]);
         }
     }
 
@@ -90,8 +96,33 @@ contract BlindboxSale is Initializable, OwnableUpgradeable{
         return address(this).balance;
     }
 
+
+    //Get nft info. TokenType 0 = Horse, 1 = TrainingCenter
+    function getInfo(uint256 _tokenId) external view returns (address, string memory, uint256, HasHorse.Horse memory){
+        address _addressOwner = _ownerOf(_tokenId);
+        string memory _tokenURI = nft721.tokenURI(_tokenId);
+        uint256 _tokenType = tokenIdToTokenType[_tokenId];
+        HasHorse.Horse memory _horse = hasHorseContract.getHorse(_tokenId);
+        return (_addressOwner, _tokenURI, _tokenType, _horse);
+    }
+
     function createHorse(uint256 tokenId) internal {
         horseToOwner[tokenId] = msg.sender;
+        tokenIdToTokenType[tokenId] = uint(TokenType.Horse); //0
         emit NewHorse(tokenId);
+    }
+
+    function setHorseBreedCount(uint256 tokenId,  uint16 _breedCount) external onlyOwner{
+        hasHorseContract.setBreedCount(tokenId, _breedCount);
+    }
+
+    //NFT721 function callers
+    function _balanceOf(address owner) public view virtual returns (uint256){
+        return nft721.balanceOf(owner);
+    }
+
+    function _ownerOf(uint256 tokenId) public view virtual returns (address){
+        address owner = nft721.ownerOf(tokenId);
+        return owner;
     }
 }
