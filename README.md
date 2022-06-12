@@ -1,61 +1,59 @@
 ![FingerNFT](https://cdn.fingerchar.com/images/logo.jpg)
 
-### 什么是FingerNFT
-FingerNFT系统是基于以太坊开发的去中心化NFT市场, FingerNFT借鉴了Rarible智能合约,实现免手续费离线签名，帮助用户在交易NFT的同时，减少手续费消耗。FingerNFT可部署在以太坊、币安、火币、MATIC等流行的公链上。采用流行的Java与Vue语言开发，结合当下流行的后端技术Spring Boot后端框架和主流的前端框架Vue3，移动端采用自适应, 支持PC+H5, 实现前后端分离技术，是技术团队二开NFT市场的不二之选。
-FingerNFT具有技术主流、价格低、授权宽松等特点。FingerNFT系统支持各大钱包的dapp浏览器，同时还兼容全球主流的NFT交易市场Opensea和Rarible，在FingerNFT上创建的NFT均可在Opensea等主流平台上售卖，同时其他平台的NFT也可在FingerNFT系统上售卖。目前FingerNFT拥有【开源版】、【基础版】、【盲盒+拍卖版】、【流动性质押版】、【区块链游戏市场(gamefi)版】。
+### What is fingernft
+Fingernft system is a decentralized NFT market developed based on Ethereum. Fingernft draws lessons from rarible smart contract to realize fee free offline signature and help users reduce fee consumption while trading NFT. Fingernft can be deployed on popular public chains such as Ethereum, BSC, HECO and Polygon. Developed in popular Java and Vue3.0 languages, combined with the current popular back-end technology spring boot back-end framework and the mainstream front-end framework Vue3, the mobile terminal adopts responsive technology to realize the front-end and back-end separation technology, which is the best choice for the technical team to developing the NFT market.
+Fingernft has the characteristics of mainstream technology, low price and loose authorization. The fingernft system supports DAPP browsers of major wallets and is compatible with the world's mainstream NFT trading markets opensea and rarible. NFTs created on fingernft can be sold on mainstream platforms such as opensea. At the same time, NFTs of other platforms can also be sold on fingernft system.Currently FingerNFT has 【Open Source Version】, 【Basic Version】, 【Blind Box + Auction Version】, 【Liquid Staking Version】, 【Blockchain Game Market (gamefi) Version】
 
-### 功能
+### Function
 
-- **平台托管用户的离线签名，安全且省交易费。**
-- **支持PC端、移动端，支持主链钱包Dapp浏览器**
-- **创建自己的NFT(包括ERC721、ERC1155)；以及创建自己的NFT收藏夹(包括ERC721、ERC1155合约)。**
-- **视频、图片资源上链，可永久保存。**
-- **卖家出售、买家出价，且出售和出价免手续费，只在正在交易时，才上链。**
-- **NFT拍卖，设置最低接受价和分红比例，参与拍卖者如果没拍到，将获得按交易额比例的分红。**
-- **制作盲盒，后台配置盲盒后，可在平台上售卖。**
-- **质押：支持LP质押、Pool质押、NFT质押，兼容市场上主链的Defi活动。**
-- **GameFi：传统游戏资产上链，平台授权登录，在平台上充值、提现游戏方代币。**
-- **元宇宙： 元宇宙区块链模块，平台提供NFT api查询、交易**
-- **支持多语言切换**
+- **The platform hosts the offline signature of users, which is safe and saves transaction fees.**
+- **Support PC terminal, mobile terminal and DAPP browser of main chain wallet.**
+- **Create your own NFT (including erc721 and erc1155); And create your own NFT favorites (including erc721 and erc1155 contracts).**
+- **Video and picture resources are linked and can be saved permanently.**
+- **The seller sells and the buyer bids, and the selling and bidding are free of handling charges. They are only put on the chain when the transaction is in progress.**
+- **For NFT auction, set the minimum acceptance price and dividend proportion. If the participants in the auction fail to get the auction, they will receive dividends in proportion to the transaction amount.**
+- **Make the blind box. After the blind box is configured in the background, it can be sold on the platform.**
+- **Pledge: it supports LP pledge, pool pledge and NFT pledge, and is compatible with the defi activities of the main chain in the market.**
+- **GameFi：traditional game assets are linked, the platform is authorized to log in, recharge and withdraw the player's tokens on the platform.**
+- **Metauniverse: metauniverse blockchain module, which provides NFT API query and transaction.**
+- **Support multi language switching.**
 
 
-### 开源版
+### Open source version
 
-免费开源的NFT市场，支持ERC721创建和交易(包含卖家出售+出价),  创建NFT后，图片将自动上传到IPFS节点上永久保存 , 可连接metamask钱包在线签名，支持语言包括: 中文、英文。
+The free and open source NFT market supports ERC721 creation and trading (including sellers selling + bidding). After creating NFT, the picture will be automatically uploaded to the IPFS node for permanent storage. It can be connected to the metamask wallet for online signature. The supported languages include: Chinese, English.
 
-[开源版FingerNFT演示](https://fingernft.fingerchar.com)
+[Open source version of FingerNFT demo](https://fingernft.fingerchar.com)
 
-[部署文档](./INSTALL.md)
+[Deployment documentation](https://fingernft-doc.fingerchar.com/)
 
-后台账号密码:
+Background account password:
 admin  12345678
 
-### 商业版
+### Business Version
 
-
-|  版本   |  功能  |  
+|  Version   |  Function  |  
 |---|---|
-|  基础版  |  1. 创建和交易ERC721、ERC1155, 支持pc端和移动端;  2. NFT图片上传IPFS链上,永久保存, 登录支持metamask和各种钱包app。   |
-|  盲盒+拍卖版  |  包含基础版; 1. 支持多种链(以太坊、币安、火币、MATIC等主流公链), 平台上任意切换； 2. 盲盒功能: 通过后台制作盲盒，自由灵活且低成本, 用户购买后自动上链;  3. 拍卖功能: 设置最低价，参与拍卖者有奖。  |
-| 流动性质押版 | 包含盲盒+拍卖版; 1. LP质押: 所有swap系统上的lp代币质押奖励平台币; 2. Pool质押: 质押平台币，获取第三方币种;  3. NFT质押: 设置指定NFT合约或tokenid参与质押，奖励指定的币种。 |
-| 区块链游戏(GameFi) 版| 包含流动性质押版; 1. GameFi: 任意游戏资产可对接平台，通过平台授权登录游戏；2.在平台上充值资产到游戏方、或从游戏方提现资产。 |
+|  Basic Version  |  1、Create and trade ERC721, ERC1155, support PC and HTML5, NFT pictures are uploaded to the IPFS chain, permanently saved, and login supports metamask and various wallet apps. |
+|  Blind Box + Auction Version  | Contains the basic version; 1、Chain supporting Ethereum series (Ethereum、BSC、HECO 、Polygon、etc.); 2、Blind box function: The blind box is made in the background, which is free, flexible and low-cost, and the user will automatically upload the chain after purchase; 3、Auction function: Set the lowest price, and participants will receive a prize. |
+| Liquid Staking Version | Includes blind box + auction edition 1、LP pledge: LP token pledge on all swap systems rewards platform currency；2、Pool pledge: pledge platform currency to obtain third-party currency; NFT pledge: Set up the designated NFT contract or tokenid to participate in the pledge, and reward the designated currency. |
+| Blockchain Game Market (gamefi) Version| Contains liquid collateral; 1、GameFi: Any game asset can be connected to the platform, and the platform can be authorized to log in to the game;Recharge assets to the game party on the platform, or withdraw assets from the game party |
 
-![商业版](https://cdn.fingerchar.com/images/versions.png)
+![商业版](https://cdn.fingerchar.com/images/versions_en.png)
 
-### 联系我们
-* 电话: 13459461911
+### Contact us
+* Tel: 13459461911
 
-#### 微信
+#### WeChat
 
 ![微信](https://cdn.fingerchar.com/images/customer.png)
 
-### 开发环境
-- 后端: Spring Boot Java框架
-- PC前端: Vue前端框架
-- 移动端: Uniapp前端框架
+### Development environment
+- Server technology: Spring Boot Java framework
+- Front-end technology: PC + HTML5 responsive based on VUE3.0
 
 
-### 配置
+### Configure
 * NodeJs >= 11.15.0
 * Vue3.0
 * JDK >= 1.8
@@ -68,6 +66,4 @@ admin  12345678
 ![](https://cdn.fingerchar.com/images/show2.png)
 
 ![](https://cdn.fingerchar.com/images/show3.png)
-
-
 

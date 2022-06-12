@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fingerchar.db.dao.ext.FcContractExtMapper">
+    <select id="findContractWithDeal" resultType="com.fingerchar.db.vo.FcContractVO">
+    	select t1.*, t2.total_deal, t2.total_sell from fc_contract t1
+    		inner join (
+    			SELECT
+				  token,
+				  total_deal,
+				  total_sell,
+				  MAX(sta_time)
+				FROM
+				  sta_nft_deal
+				GROUP BY token
+				HAVING token IN <foreach item='item' index='index' collection='contracts' open='(' separator=',' close=')'>#{item}</foreach>) 
+				t2
+    		on t1.address = t2.token
+    </select>
+    
+     <select id="listTopCollection" resultType="com.fingerchar.db.vo.FcContractVO" >
+       SELECT *
+		FROM
+		  (SELECT
+		    MAX(total_deal) AS total_deal,
+		    MAX(total_sell) AS total_sell,
+		    token
+		  FROM
+		    sta_nft_deal
+		  GROUP BY token) t1
+		  LEFT JOIN fc_contract t2
+		    ON t1.token = t2.`address`
+		  	<where>
+		  		<if test="null != name and '' != name">
+		          t2.name LIKE CONCAT('%', #{name}, '%')  
+		        </if>
+		  		<if test="null != symbol and '' != symbol">
+		          t2.symbol = #{symbol}
+		        </if>
+		  		<if test="null != address and '' != address">
+		          t2.address = #{address}
+		        </if>
+		  	</where>
+		  	ORDER BY t1.total_deal, t1.total_sell DESC
+    </select>
+</mapper>

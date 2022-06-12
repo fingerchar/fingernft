@@ -1,0 +1,153 @@
+.fg-dialog {
+  height: auto !important;
+  width: 400px !important;
+  margin-top: 15vh !important;
+  border-radius: 16px;
+  overflow: hidden;
+  animation:window-open 0.5s 1;
+  .el-dialog__body {
+    padding-top: 10px;
+    height: auto !important;
+  }
+  .all-error {
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    color: $redColor;
+  }
+}
+
+@keyframes window-open
+{
+  0% {
+    bottom:-10.5rem;
+  }
+  100% {
+    bottom:0;
+  }
+}
+
+
+.fg-dialog-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  .left {
+    font-size: 20px;
+    font-weight: bold;
+    flex: 1;
+  }
+  .right {
+    width: 25px;
+    height: 25px;
+  }
+  .close-img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+}
+
+.process {
+  padding-bottom: 10px;
+  .paytoken-suffix {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+  }
+  .fg-dialog-input, .el-date-editor {
+    .el-input__inner {
+      padding: 0 25px 0 20px !important;
+      height: 40px !important;
+      background-color: #f3f4fa !important;
+    }
+  }
+  .el-slider__runway {
+    margin: 0;
+  }
+  .el-input__suffix {
+    right: 0;
+  }
+
+  .step-info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 18px;
+    justify-content: space-between;
+  }
+  .step {
+    font-size: 24px;
+    font-weight: bold;
+    color: #999;
+    &.img {
+      animation: loading 0.75s linear infinite forwards;
+    }
+    &.finish {
+      color: $primaryColor;
+    }
+    &.loading {
+      .loading-animation {
+        height: 20px;
+        width: 20px;
+        animation: loading 0.75s linear infinite forwards;
+      }
+      @keyframes loading {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
+  .process-btn {
+    padding: 10px 0;
+    .el-button {
+      width: 100%;
+    }
+  }
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    .process-btn{
+      width: 45%;
+    }
+  }
+  .process-error,
+  .input-error {
+    padding-top: 5px;
+    font-weight: 400;
+    color: $redColor;
+  }
+  .input-info {
+    margin-bottom: 15px;
+    .tip {
+      padding-bottom: 10px;
+      padding-top: 10px;
+      font-size: 14px;
+      .text{
+        margin-right: 15px;
+      }
+    }
+  }
+  .w50 {
+    width: 50% !important;
+  }
+  .input-group, .confirm-text {
+    padding-bottom: 20px;
+  }
+  .stip {
+    padding-top: 5px;
+    margin-bottom: 15px;
+  }
+  & .el-date-editor.el-input {
+    width: 100% !important;
+  }
+}
+
+

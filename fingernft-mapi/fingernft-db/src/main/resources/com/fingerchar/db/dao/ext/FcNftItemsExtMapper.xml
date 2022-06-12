@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fingerchar.db.dao.ext.FcNftItemsExtMapper">
+    <select id="getIdAndItemsMap" resultType="com.fingerchar.db.domain.FcNftItems" >
+        SELECT *
+        FROM fc_nft_items
+        <if test="ew.emptyOfWhere == false">
+            ${ew.customSqlSegment}
+        </if>
+    </select>
+
+
+    <select id="list" resultType="com.fingerchar.db.vo.NftItemsVo" >
+        select t1.name,
+        t1.description,
+        t1.quantity,
+        t1.item_owner as owner,
+        t2.address as token,
+        t2.token_id,
+        t2.metadata_url as meta_url,
+        t2.metadata_content as meta_content
+        from fc_nft_items t1
+        inner join fc_contract_nft t2
+        on t1.nft_id = t2.id
+        where t1.item_owner = #{owner}
+        <if test=" null != token and '' != token">
+            and t2.address = #{token}
+        </if>
+        <if test=" null != tokenId and '' != tokenId">
+            and t2.token_id = #{tokenId}
+        </if>
+        <if test=" null != tokenList and '' != tokenList">
+            and t2.address in
+            <foreach collection="tokenList" item="item" index="index" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+
+        and t2.is_sync = true
+        and t1.deleted = false
+    </select>
+
+    <select id="get" resultType="com.fingerchar.db.vo.NftItemsVo" >
+        select t1.name,
+               t1.description,
+               t1.quantity,
+               t1.item_owner as owner,
+               t2.address as token,
+               t2.token_id,
+               t2.metadata_url as meta_url,
+               t2.metadata_content as meta_content
+        from fc_nft_items t1
+                 inner join fc_contract_nft t2
+                            on t1.nft_id = t2.id
+        where t1.item_owner = #{owner}
+          and t2.address = #{token}
+          and t2.token_id = #{tokenId}
+          and t2.is_sync = true
+          and t1.deleted = false
+    </select>
+
+    <select id="count" resultType="java.lang.Long" >
+        select count(t1.id)
+        from fc_nft_items t1
+        inner join fc_contract_nft t2
+        on t1.nft_id = t2.id
+        where t1.item_owner = #{owner}
+        <if test=" null != token and '' != token">
+            and t2.address = #{token}
+        </if>
+        <if test=" null != tokenId and '' != tokenId">
+            and t2.token_id = #{tokenId}
+        </if>
+        and t2.is_sync = true
+        and t1.deleted = false
+    </select>
+
+    <select id="listByMulti" resultType="com.fingerchar.db.domain.FcNftItems">
+        select *
+        from fc_nft_items
+        where fc_nft_items.deleted = false
+              and (address, token_id) in
+        <foreach item='item' index='index' collection='params' open='(' separator=',' close=')'>(#{item.address}, #{item.tokenId})</foreach>
+    </select>
+    <select id="countByCondition" resultType="java.lang.Integer">
+        select COALESCE(sum(quantity),0) as total
+        from fc_nft_items t
+        where t.deleted = false
+        and t.is_sync = true
+        <if test=" null != time and '' != time">
+            and t.create_time > #{time}
+        </if>
+        <if test=" null != onsell and '' != onsell">
+            and t.onsell = #{onsell}
+        </if>
+    </select>
+
+</mapper>

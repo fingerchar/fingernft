@@ -1,10 +1,10 @@
-import Clipboard from './clipboard'
+import Clipboard from "./clipboard";
 
 export default {
-  install(Vue, options) {
-    Vue.directive('clipboard', Clipboard)
-  }
-}
+  install(Vue) {
+    Vue.directive("clipboard", Clipboard);
+  },
+};
 
 /* const install = function(Vue) {
   Vue.directive('Clipboard', Clipboard)

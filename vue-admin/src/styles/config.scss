@@ -20,9 +20,20 @@
   .item-value{
     align-items: center;
     display: flex;
+    &+.item-value {
+      margin-top: 10px;
+    }
+  }
+  .item-error{
+    margin-top: 5px;
+    color: $red;
   }
   .show-value{
     flex: 1;
     margin-right: 10px;
+    word-break: break-all;
+  }
+  .show-value-item{
+    margin-bottom: 5px;
   }
 }

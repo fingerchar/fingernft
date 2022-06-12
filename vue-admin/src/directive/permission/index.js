@@ -1,10 +1,10 @@
-import permission from './permission'
+import permission from "./permission";
 
 export default {
-  install(Vue, options) {
-    Vue.directive('permission', permission)
-  }
-}
+  install(Vue) {
+    Vue.directive("permission", permission);
+  },
+};
 
 /* const install = function(Vue) {
   Vue.directive('permission', permission)

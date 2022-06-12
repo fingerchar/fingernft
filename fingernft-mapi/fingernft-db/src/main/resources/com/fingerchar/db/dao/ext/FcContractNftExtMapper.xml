@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fingerchar.db.dao.ext.FcContractNftExtMapper">
+
+    <update id="setNftVerify">
+        update fc_contract_nft
+        set nft_verify = true
+        where is_sync = true
+          and nft_verify = false
+          and deleted = false
+    </update>
+
+    <select id="getList" resultType="com.fingerchar.db.vo.FcContractNftVo">
+        SELECT nft.*
+        FROM fc_contract_nft nft
+        <if test="ew.emptyOfWhere == false">
+            ${ew.customSqlSegment}
+        </if>
+    </select>
+
+    <select id="getAllAddress" resultType="String">
+        SELECT DISTINCT
+        address
+        FROM
+        fc_contract_nft
+        <if test="ew.emptyOfWhere == false">
+            ${ew.customSqlSegment}
+        </if>
+    </select>
+
+    <select id="getByAddress" resultType="com.fingerchar.db.domain.FcContractNft">
+        SELECT *
+        FROM fc_contract_nft
+        <if test="ew.emptyOfWhere == false">
+            ${ew.customSqlSegment}
+        </if>
+    </select>
+
+    <select id="listByMulti" resultType="com.fingerchar.db.domain.FcContractNft">
+        select *
+        from fc_contract_nft
+        where (address, token_id) in
+        <foreach item='item' index='index' collection='params' open='(' separator=',' close=')'>(#{item.address},
+            #{item.tokenId})
+        </foreach>
+    </select>
+
+    <select id="findVerifyNft" resultType="com.fingerchar.db.domain.FcContractNft">
+        select distinct t1.*
+        from fc_contract_nft t1
+        left join fc_nft_items t2
+        on t1.address = t2.`address` and t1.token_id = t2.token_id
+        where t1.nft_verify = true
+        and t1.is_sync = true
+        and t2.deleted = false
+        <if test='null != categoryId'>
+            and t1.category_id = #{categoryId}
+        </if>
+        <if test='null != isSell'>
+            and t2.onsell = #{isSell}
+        </if>
+        <if test='null != address'>
+            and t1.address = #{address}
+        </if>
+        <if test='null != contracts'>
+            and t1.address in
+            <foreach item='item' index='index' collection='contracts' open='(' separator=',' close=')'>#{item}</foreach>
+        </if>
+        <if test='null != payToken'>
+            and t2.paytoken_address = #{payToken}
+        </if>
+        <if test='null != minPrice'>
+            and t2.price <![CDATA[ >= ]]> #{minPrice}
+        </if>
+        <if test='null != maxPrice'>
+            and t2.price <![CDATA[ <= ]]> #{maxPrice}
+        </if>
+        <if test='null != search'>
+            and match (t1.name) against (#{search})
+        </if>
+        <choose>
+            <when test="null != sort and '' != sort">
+                order by t2.`${sort}` ${order}
+            </when>
+            <otherwise>
+                order by t1.create_time desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findContractNft" resultType="com.fingerchar.db.domain.FcContractNft">
+        select distinct t1.*
+        from fc_contract_nft t1
+        left join fc_nft_items t2
+        on t1.address = t2.address and t1.token_id = t2.token_id
+        where t1.is_sync = true
+        and t2.deleted = false
+        <if test='null != isSell'>
+            and t2.onsell = #{isSell}
+        </if>
+        <if test='null != address'>
+            and t1.address = #{address}
+        </if>
+        order by t1.create_time desc
+    </select>
+
+    <select id="searchNft" resultType="com.fingerchar.db.domain.FcContractNft">
+        select distinct t1.*
+        from fc_contract_nft t1
+        where match (name) against (#{name})
+          and t1.nft_verify = true
+          and t1.is_sync = true
+        order by t1.id desc
+    </select>
+
+    <select id="findOnsaleNft" resultType="com.fingerchar.db.domain.FcContractNft">
+        select distinct t1.*
+        from fc_contract_nft t1
+                 left join fc_nft_items t2
+                 on t1.address = t2.address and t1.token_id = t2.token_id
+        where t1.is_sync = true
+          and t2.`onsell` = true
+          and t2.item_owner = #{owner}
+          and t2.is_sync = true
+          and t2.deleted = false
+        order by t1.create_time desc
+    </select>
+
+
+    <select id="findCollectionNft" resultType="com.fingerchar.db.domain.FcContractNft">
+        select distinct t1.*
+        from fc_contract_nft t1
+            left join fc_nft_items t2
+            on t1.address = t2.address and t1.token_id = t2.token_id
+        where t1.is_sync = true
+            <if test="null != params.address">
+                and t1.address = #{params.address}
+            </if>
+            <if test="null != params.tokenId">
+            and t1.tokenId = #{params.tokenId}
+            </if>
+
+            <if test='null != params.owner'>
+            and t2.item_owner = #{params.owner}
+            </if>
+            and t2.deleted = false
+        order by t1.create_time desc
+    </select>
+
+    <select id="nftlist" resultType="com.fingerchar.db.domain.FcContractNft">
+        select distinct t1.*
+        from fc_contract_nft t1
+        left join fc_nft_items t2
+        on t1.address = t2.address and t1.token_id = t2.token_id
+        where t1.is_sync = true
+        <if test="null != params.address">
+            and t1.address = #{params.address}
+        </if>
+        <if test="null != params.tokenId">
+            and t1.tokenId = #{params.tokenId}
+        </if>
+
+        <if test='null != params.owner'>
+            and t2.item_owner = #{params.owner}
+        </if>
+        and t2.deleted = false
+        order by t1.create_time desc
+    </select>
+
+    <select id="countCreatorNft" resultType="java.lang.Integer">
+        select count(1)
+        from fc_contract_nft t1
+        where t1.is_sync = true
+          and t1.deleted = false
+          and t1.creator = #{creator}
+    </select>
+
+    <select id="countContractOnsale" resultType="java.lang.Integer">
+        select count(distinct t1.id)
+        from fc_contract_nft t1
+             left join fc_nft_items t2
+                       on t1.address = t2.address and t1.token_id = t2.token_id
+        where t1.is_sync = true
+          and t1.address = #{address}
+          and t2.`onsell` = true
+          and t2.deleted = false
+    </select>
+
+    <select id="findCreatorNft" resultType="com.fingerchar.db.domain.FcContractNft">
+        select distinct t1.*
+        from fc_contract_nft t1
+        where t1.is_sync = true
+          and t1.creator = #{creator}
+        order by t1.create_time desc
+    </select>
+
+    <select id="findLikeNft" resultType="com.fingerchar.db.domain.FcContractNft">
+        select distinct t2.*
+        from fc_nft_like t1
+                 left join fc_contract_nft t2
+                           on t1.address = t2.address and t1.token_id = t2.token_id
+        where t2.is_sync = true
+          and t1.`user_address` = #{userAddress}
+        order by t1.create_time desc
+    </select>
+
+    <select id="listByTokenAndTokenId" resultType="com.fingerchar.db.domain.FcContractNft">
+        select *
+        from fc_contract_nft
+        where (address, token_id) in
+        <foreach item='item' index='index' collection='params' open='(' separator=',' close=')'>(#{item.address},
+            #{item.tokenId})
+        </foreach>
+    </select>
+
+    <select id="findNftWithBidNum" resultType="com.fingerchar.db.vo.FcContractNftWithBidVO">
+        SELECT * FROM (SELECT COUNT(buyer_token) as bid_nums, buyer_token, buyer_token_id FROM fc_order WHERE `status` =
+        0 AND expired = FALSE AND deleted = FALSE GROUP BY buyer_token, buyer_token_id) t1
+        INNER JOIN fc_contract_nft t2
+        ON t1.buyer_token = t2.address
+        AND t1.buyer_token_id = t2.token_id
+        <where>
+            <if test="nftName != null and nftName != ''">
+                t2.`name` like CONCAT('%', #{nftName} ,'%')
+            </if>
+            <if test="categoryId != null">
+                t2.`category_id` = #{categoryId}
+            </if>
+        </where>
+        order by bid_nums desc
+    </select>
+    <select id="countContractLike" resultType="java.lang.Integer">
+        select count(*)
+        from fc_contract_nft
+        where fc_contract_nft.deleted = false
+        and fc_contract_nft.is_sync = true
+        and (address, token_id) in
+        <foreach item='item' index='index' collection='params' open='(' separator=',' close=')'>(#{item.address},
+            #{item.tokenId})
+        </foreach>
+    </select>
+    <select id="countByCondition" resultType="java.lang.Integer">
+        select COALESCE(sum(quantity),0) as total
+        from fc_contract_nft
+        where fc_contract_nft.deleted = false
+        <if test="time != null and '' != time" >
+            and fc_contract_nft.create_time > #{time}
+        </if>
+        <if test="type != null and '' != type">
+            and fc_contract_nft.type = #{type}
+        </if>
+
+    </select>
+</mapper>

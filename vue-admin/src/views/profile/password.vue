@@ -20,16 +20,22 @@
 </template>
 
 <script>
+// import { changePassword } from '@/api/profile'
 
 export default {
   name: "ChangePassword",
   data() {
+    // var validatePassOld=(rule,value,callback) =>{
+    //   if(value!=1){
+    //       callback(new Error("原密码不正确"));
+    //   }
+    // };
     var validatePass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error(this.$t('profile.emptyPassword')));
+        callback(new Error("请输入密码"));
       } 
-      else if(value.length < 6){
-        callback(new Error(this.$t('profile.limitPassword')));
+      else if(value.length<6){
+        callback(new Error("密码长度不能小于6位"));
       }
       else {
         callback();
@@ -37,9 +43,9 @@ export default {
     };
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error(this.$t('profile.resetPassword')));
+        callback(new Error("请再次输入密码"));
       } else if (value !== this.dataForm.newPassword) {
-        callback(new Error(this.$t('profile.unsamePassword')));
+        callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
       }
@@ -52,14 +58,15 @@ export default {
       },
       rules: {
         oldPassword: [
-          { required: true, message: this.$t('profile.emptyOldPassword'), trigger: "blur" },
+          { required: true, message: "旧密码不能为空", trigger: "blur" },
+          // { validator: validatePassOld, trigger: "blur" },
         ],
         newPassword: [
-          { required: true, message: this.$t('profile.emptyNewPassword'), trigger: "blur" },
+          { required: true, message: "新密码不能为空", trigger: "blur" },
           { validator: validatePass, trigger: "blur" },
         ],
         newPassword2: [
-          { required: true, message: this.$t('profile.emptyConfirmPassword'), trigger: "blur" },
+          { required: true, message: "确认密码不能为空", trigger: "blur" },
           { validator: validatePass2, trigger: "blur" },
         ],
       },
@@ -86,6 +93,7 @@ export default {
               message: this.$t('profile.changeSuccess'),
             })
             this.cancel();
+            this.$store.dispatch("LogOut");
           }else{
             this.$notify.error({
               title: this.$t('global.fail'),
@@ -100,6 +108,7 @@ export default {
         })
       })
     }
+
   },
 };
 </script>

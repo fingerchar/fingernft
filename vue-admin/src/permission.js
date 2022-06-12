@@ -16,18 +16,17 @@ function hasPermission(perms, permissions) {
 const whiteList = ["/login", "/auth-redirect"]; // no redirect whitelist
 
 router.beforeEach(async (to, from, next) => {
-  
   NProgress.start(); // start progress bar
   const hasToken = getToken();
-  document.title = i18n.t('title.manageBackground') + `-` + i18n.t(to.meta.title);
- 
+  document.title =
+    i18n.t("title.manageBackground") + `-` + i18n.t(to.meta.title);
+
   if (store.getters.perms.length) {
     // 已经拉取user_info
     const { perms } = store.getters;
     if (to.fullPath == `/login` && hasToken) {
       next({
         path: `/dashboard`,
-        // query: { ...to.query, redirect: whiteList.includes(to.path) ? '/dashboard' : to.path },
         replace: true,
       });
       NProgress.done();
@@ -52,12 +51,20 @@ router.beforeEach(async (to, from, next) => {
       try {
         await store.dispatch("GetUserInfo");
         const perms = store.getters.perms;
+        if (
+          perms.indexOf("POST /admin/config/fetch") > -1 ||
+          perms.indexOf("*") > -1
+        ) {
+          store.dispatch("findConfig");
+        }
         try {
           await store.dispatch("GenerateRoutes", { perms });
-          router.addRoutes(store.getters.addRouters);
-
+          store.getters.addRouters?.forEach((r) => {
+            router.addRoute(r);
+          });
           next({ ...to, replace: true });
         } catch (e) {
+          console.error(e);
           next({
             path: `/login`,
             query: {
@@ -80,7 +87,6 @@ router.beforeEach(async (to, from, next) => {
       }
     }
   } else {
-   
     if (whiteList.indexOf(to.path) !== -1) {
       // 在免登录白名单，直接进入
       next();

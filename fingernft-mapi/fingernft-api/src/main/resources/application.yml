@@ -1,0 +1,42 @@
+server:
+  port: 20005
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 800
+    min-spare-threads: 100
+    accept-count: 1000
+    max-connections: 8000
+spring:
+  servlet:
+      multipart:
+        max-file-size: 40MB
+        max-request-size: 100MB
+  messages:
+    encoding: UTF-8
+  mvc:
+    async:
+      request-timeout: 20000
+  datasource:
+    druid:
+      url:  jdbc:mysql://192.168.1.111:3306/github_fingernft?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+      driver-class-name:  com.mysql.cj.jdbc.Driver
+      username:  github_fingernft
+      password:  github_fingernft
+      initial-size:  10
+      max-active:  50
+      min-idle:  10
+      max-wait:  60000
+      pool-prepared-statements:  true
+      max-pool-prepared-statement-per-connection-size:  20
+      validation-query:  SELECT 1 FROM DUAL
+      test-on-borrow:  false
+      test-on-return:  false
+      test-while-idle:  true
+      time-between-eviction-runs-millis:  60000
+      filters:  stat,wall
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  config: classpath:logback-spring.xml
+

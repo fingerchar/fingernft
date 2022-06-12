@@ -21,6 +21,10 @@
   }
 }
 
+.el-table__cell{
+  position: inherit !important;
+}
+
 .el-dialog__wrapper.mobile {
   .el-dialog {
     width: 90%;

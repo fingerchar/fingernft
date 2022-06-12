@@ -3,8 +3,8 @@
 @import './transition.scss';
 @import './element-ui.scss';
 @import './sidebar.scss';
-@import './btn.scss';
 @import './config.scss';
+@import './btn.scss';
 
 body {
   height: 100%;
@@ -74,8 +74,15 @@ div:focus {
   padding-left: 5px;
 }
 
+.p-10{
+  padding: 10px !important;
+}
+
 .mr-10 {
   margin-right: 10px;
+}
+.mb-10 {
+  margin-bottom: 10px;
 }
 .mb-20 {
   margin-bottom: 20px;
@@ -91,6 +98,21 @@ div:focus {
 
 .pointer {
   cursor: pointer;
+}
+
+.cblue{
+  color: #1890ff !important;
+}
+
+.cgreen{
+  color: $green !important;
+}
+.cred{
+  color: $red !important;
+}
+
+.bfont{
+  font-weight: bold !important;
 }
 
 .inlineBlock {
@@ -147,6 +169,9 @@ aside {
 
 .text-center {
   text-align: center
+}
+.error-tip{
+  color: $red;
 }
 
 .sub-navbar {
@@ -210,6 +235,29 @@ aside {
 
 .flex-box {
   display: flex;
+}
+
+.flex{
+  display: flex !important;
+}
+
+.flex1{
+  flex:1 !important;
+}
+
+.align-center{
+  align-items: center !important;
+}
+
+.justify-center{
+  justify-content: center !important;
+}
+
+.m-top-10{
+  margin-top: 10px !important;
+}
+.m-top-20{
+  margin-top: 20px !important;
 }
 
 

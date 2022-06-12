@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fingerchar.db.dao.ext.FcOrderExtMapper">
+
+    <select id="salelistbymulti" resultType="com.fingerchar.db.domain.FcOrder">
+        select *
+        from fc_order
+        where status = 0 and expired = false and  (sell_token, sell_token_id) in
+        <foreach item='item' index='index' collection='params' open='(' separator=',' close=')'>(#{item.address}, #{item.tokenId})
+</foreach> and deleted = false
+    </select>
+
+    <select id="bidlistbymulti" resultType="com.fingerchar.db.domain.FcOrder">
+        select *
+        from fc_order
+        where status = 0 and expired = false and  (buyer_token, buyer_token_id) in
+        <foreach item='item' index='index' collection='params' open='(' separator=',' close=')'>(#{item.address}, #{item.tokenId})
+        </foreach> and deleted = false
+    </select>
+
+
+
+
+</mapper>

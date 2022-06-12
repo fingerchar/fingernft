@@ -1,15 +1,7 @@
 <template>
-  <div id="app">
+  <div>
     <router-view />
-    <!-- <DebugComs /> -->
   </div>
 </template>
 
-<script>
-
-export default {
-  name: 'App',
-}
-
-</script>
-
+<script></script>
