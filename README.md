@@ -39,7 +39,6 @@ admin  12345678
 | Liquid Staking Version | Includes blind box + auction edition 1、LP pledge: LP token pledge on all swap systems rewards platform currency；2、Pool pledge: pledge platform currency to obtain third-party currency; NFT pledge: Set up the designated NFT contract or tokenid to participate in the pledge, and reward the designated currency. |
 | Blockchain Game Market (gamefi) Version| Contains liquid collateral; 1、GameFi: Any game asset can be connected to the platform, and the platform can be authorized to log in to the game;Recharge assets to the game party on the platform, or withdraw assets from the game party |
 
-![商业版](https://cdn.fingerchar.com/images/versions_en.png)
 
 ### Contact us
 * Tel: 13459461911
