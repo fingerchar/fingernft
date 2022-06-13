@@ -44,7 +44,7 @@ import "../theme/index.css";
 
 import "@/styles/index.scss";
 
-import "../static/font/font.css";
+import "@/assets/font/font.css";
 
 const app = createApp(App); // 创建实例
 app.config.globalProperties.$web3 = web3;

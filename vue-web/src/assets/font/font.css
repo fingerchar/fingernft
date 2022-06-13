@@ -1,0 +1,12 @@
+@font-face{
+    font-family:'Montserrat-Regular';
+    src:url('Montserrat-Regular.ttf') format('truetype');
+    font-weight: Regular;
+    font-style: normal;
+}
+@font-face{
+  font-family:'kust';
+  src:url('kust.woff.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
