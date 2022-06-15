@@ -40,12 +40,19 @@ admin  12345678
 | Blockchain Game Market (gamefi) Version| Contains liquid collateral; 1、GameFi: Any game asset can be connected to the platform, and the platform can be authorized to log in to the game;Recharge assets to the game party on the platform, or withdraw assets from the game party |
 
 
+![FingerNFT](https://cdn.fingerchar.com/images/version_en.jpeg)
+
 ### Contact us
 * Tel: 13459461911
+* Telegram: [https://t.me/fingernft1](https://t.me/fingernft1)
 
 #### WeChat
 
 ![微信](https://cdn.fingerchar.com/images/customer.png)
+
+#### Telegram
+
+![Telegram](https://cdn.fingerchar.com/images/telegram.png)
 
 ### Development environment
 - Server technology: Spring Boot Java framework

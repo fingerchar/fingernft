@@ -44,10 +44,16 @@ admin  12345678
 
 ### 联系我们
 * 电话: 13459461911
+* Telegram: [https://t.me/fingernft1](https://t.me/fingernft1)
+
 
 #### 微信
 
 ![微信](https://cdn.fingerchar.com/images/customer.png)
+
+#### Telegram
+
+![Telegram](https://cdn.fingerchar.com/images/telegram.png)
 
 ### 开发环境
 - 后端: Spring Boot Java框架
