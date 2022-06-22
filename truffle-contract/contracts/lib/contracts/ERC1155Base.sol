@@ -9,7 +9,7 @@ import "./ERC1155MetadataURI.sol";
 import "./ERC1155.sol";
 import "../utils/Ownable.sol";
 
-contract ERC1155Base is HasSecondarySaleFees, Ownable, ERC1155MetadataURI, HasContractURI, ERC1155 {
+abstract contract ERC1155Base is HasSecondarySaleFees, Ownable, ERC1155MetadataURI, HasContractURI, ERC1155 {
 
     using SafeMath for uint256;
 

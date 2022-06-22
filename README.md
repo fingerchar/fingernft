@@ -26,6 +26,7 @@ The free and open source NFT market supports ERC721 creation and trading (includ
 [Open source version of FingerNFT demo](https://fingernft.fingerchar.com)
 
 [Deployment documentation](https://fingernft-doc.fingerchar.com/)
+[Blockchain communication community](https://www.chainpip.com)
 
 Background account password:
 admin  12345678
