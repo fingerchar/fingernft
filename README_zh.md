@@ -1,3 +1,6 @@
+[![Chainpip.com](https://cdn.fingerchar.com/images/chainpip/chainpip_ad_zh.png)](https://www.chainpip.com)
+
+
 ![FingerNFT](https://cdn.fingerchar.com/images/logo.jpg)
 
 ### 什么是FingerNFT

@@ -1,3 +1,7 @@
+[![Chainpip.com](https://cdn.fingerchar.com/images/chainpip/chainpip_ad_en.png)](https://www.chainpip.com)
+
+
+
 ![FingerNFT](https://cdn.fingerchar.com/images/logo.jpg)
 
 ### What is fingernft
