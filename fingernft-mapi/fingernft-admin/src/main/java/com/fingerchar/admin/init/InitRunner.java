@@ -69,11 +69,11 @@ public class InitRunner implements CommandLineRunner {
 	
 	private void initWeb3j() {
 		String value = this.systemConfigManager.getKeyValue(SysConfConstant.CONFIG_NETWORK);
-		if(value.isEmpty()){
+		if(null == value || value.isEmpty()){
 			return;
 		}
 		ConfigNetwork configNetwork = JSON.parseObject(value, ConfigNetwork.class);
-		if(configNetwork.getRpc().isEmpty()){
+		if(null == configNetwork.getRpc() || configNetwork.getRpc().isEmpty()){
 			return;
 		}
 
