@@ -48,7 +48,7 @@ public interface FcContractNftExtMapper {
 
 	public IPage<FcContractNft> findLikeNft(IPage<FcContractNft> page, @Param("userAddress")String userAddress);
 
-	public List<FcContractNft> listByMulti(List<NftParamVO> params);
+	public List<FcContractNft> listByMulti(@Param("params") List<NftParamVO> params);
 	/**
 	 * @param address
 	 * @return
@@ -72,13 +72,13 @@ public interface FcContractNftExtMapper {
 	 * @param pageInfo
 	 * @return
 	 */
-	public IPage<FcContractNft> listByTokenAndTokenId(Set<NftParamVO> params, IPage<FcContractNft> pageInfo);
+	public IPage<FcContractNft> listByTokenAndTokenId(@Param("params") Set<NftParamVO> params, IPage<FcContractNft> pageInfo);
 
-	public List<FcContractNft> listByTokenAndTokenId(Set<NftParamVO> params);
+	public List<FcContractNft> listByTokenAndTokenId(@Param("params") Set<NftParamVO> params);
 
 	IPage<FcContractNftWithBidVO> findNftWithBidNum(@Param("nftName") String name, @Param("categoryId") Long categoryId, IPage<FcContractNftWithBidVO> page);
 
-	Integer countContractLike(List<FcNftLike> params);
+	Integer countContractLike(@Param("params") List<FcNftLike> params);
 
 	/**
 	 *

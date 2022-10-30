@@ -24,7 +24,7 @@ public interface FcNftItemsExtMapper {
 
     NftItemsVo get(@Param("owner")String owner, @Param("token")String token, @Param("tokenId")String tokenId);
 
-    public List<FcNftItems> listByMulti(List<NftParamVO> params);
+    public List<FcNftItems> listByMulti(@Param("params") List<NftParamVO> params);
 
     Integer countByCondition(@Param("time")Long time, @Param("onsell")int onsell);
 }

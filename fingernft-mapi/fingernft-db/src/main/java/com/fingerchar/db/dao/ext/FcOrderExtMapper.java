@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface FcOrderExtMapper {
 	
-    public List<FcOrder> salelistbymulti(List<NftParamVO> params);
+    public List<FcOrder> salelistbymulti(@Param("params") List<NftParamVO> params);
 
-    public List<FcOrder> bidlistbymulti(List<NftParamVO> params);
+    public List<FcOrder> bidlistbymulti(@Param("params") List<NftParamVO> params);
 
 }
