@@ -2,6 +2,7 @@ package com.fingerchar.db.dao.ext;
 
 import com.fingerchar.db.domain.FcOrder;
 import com.fingerchar.db.vo.NftParamVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
