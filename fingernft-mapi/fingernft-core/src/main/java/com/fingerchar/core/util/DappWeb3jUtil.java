@@ -143,7 +143,14 @@ public class DappWeb3jUtil {
         List<EthBlock.Block> blockList;
         try {
             BatchResponse batchResponse = batchRequest.send();
-            blockList = batchResponse.getResponses().stream().map(r -> ((EthBlock) r).getBlock())
+            List<EthBlock> responseList = (List<EthBlock>) batchResponse.getResponses();
+            if(responseList.size() == 1){
+                EthBlock block = responseList.get(0);
+                if(block.hasError()){
+                    throw new Exception(block.getError().getMessage());
+                }
+            }
+            blockList = responseList.stream().map(r -> r.getBlock())
                     .sorted(Comparator.comparing(b -> b.getNumber().longValue())).collect(Collectors.toList());
         }catch (Exception e){
             throw new Exception(e);
