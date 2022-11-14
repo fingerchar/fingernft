@@ -19,7 +19,9 @@
 						<div class="chooseFile-Content-RightSection">
 							<avatar :imageUrl="$filters.fullImageUrl(imgSrc)" :address="user.coinbase" :imgWidth="88" :imgHeight="88"></avatar>
 							<div class="file-box">
-								<input type="file" class="file-btn" @change="imageChange" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" />
+								<input type="file" class="file-btn" @change="imageChange"
+                  :accept="$tools.imageType()"
+                />
 								<span>{{$t('profile.chooseFile')}}</span>
 							</div>
 						</div>

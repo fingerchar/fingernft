@@ -65,6 +65,12 @@ const AUCTION_STATUS_CODE = {
 let messageBoxStatus = true;
 
 export default {
+  imageType(){
+    return "image/jpg,image/jpeg,image/png,image/gif,image/svg,image/webp,image/avif";
+  },
+  mediaType(){
+    return this.imageType() + ",audio/midi,audio/mpeg,audio/webm, audio/mp4,audio/mp3";
+  },
   getNotifyType(type) {
     return NOTIFY_TYPE[type];
   },

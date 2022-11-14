@@ -16,7 +16,9 @@
             <el-form :model="createForm" class="create-form" label-position="top">
               <el-form-item :class="['upload-file', { err: errorForm.file }]">
                 <div class="form-item-label">{{ $t("erc721.uploadFile") }}</div>
-                <el-upload ref="uploadFile" class="upload-pic" v-if="!tempImg && !temAnim" accept="image/gif,image/png,image/jpeg,image/webp,audio/midi,audio/mpeg, audio/webm, audio/mp4, audio/mp3" action="" :limit="1" :auto-upload="false" :on-change="
+                <el-upload ref="uploadFile" class="upload-pic" v-if="!tempImg && !temAnim"
+                  :accept="$tools.mediaType()"
+                  action="" :limit="1" :auto-upload="false" :on-change="
                     (file, fileList) => {
                       uploadChange(file, fileList, 'uploadFile');
                     }
@@ -63,7 +65,10 @@
                 <div class="form-item-label">
                   {{ $t("erc721.chooseCover") }}
                 </div>
-                <el-upload ref="coverFile" class="upload-pic" v-if="temAnim && !tempImg" accept="image/gif,image/png,image/jpeg,image/webp" :limit="1" :auto-upload="false" action="" :on-change=" (file, fileList) => { uploadChange(file, fileList, 'coverFile'); }" name="image" :showFileList="false">
+                <el-upload ref="coverFile" class="upload-pic" v-if="temAnim && !tempImg"
+                  :accept="$tools.imageType()"
+                  :limit="1" :auto-upload="false" action=""
+                  :on-change=" (file, fileList) => { uploadChange(file, fileList, 'coverFile'); }" name="image" :showFileList="false">
                   <template #tip>
                     <div class="upload-tip">{{ $t("erc721.chooseImage") }}</div>
                   </template>

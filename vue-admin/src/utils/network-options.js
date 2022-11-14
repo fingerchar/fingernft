@@ -8,7 +8,7 @@ export default [
         name: "Ethereum",
         symbol: "ETH",
         explorer: "https://etherscan.io",
-        blockTime: 15,
+        blockTime: 12,
         opensea: "https://opensea.io/assets",
       },
       {
@@ -44,13 +44,13 @@ export default [
     label: "Testnet",
     options: [
       {
-        network: "ETH Rinkeby",
-        chainId: 4,
-        name: "ETH Rinkeby",
+        network: "ETH Goerli",
+        chainId: 5,
+        name: "ETH Goerli",
         symbol: "ETH",
-        explorer: "https://rinkeby.etherscan.io",
-        blockTime: 15,
-        opensea: "https://testnets.opensea.io/assets",
+        explorer: "https://goerli.etherscan.io/",
+        blockTime: 12,
+        opensea: "https://testnets.opensea.io/assets/goerli",
       },
       {
         network: "BSC Testnet",
