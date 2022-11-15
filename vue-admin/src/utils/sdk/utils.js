@@ -2,18 +2,19 @@ import util_web3 from "@/utils/web3/index";
 import store from "@/store";
 
 const calcGas = async (web3, key, args, lastArg, ts) => {
-  var lastBlock = await web3.eth.getBlockNumber();
+  var block = await web3.eth.getBlock("latest");
+  var lastBlock = block.number;
   var gasTracker = store.state.app.config.gasTracker;
-  let gasPrice = 0;
+  let gasPrice = await web3.eth.getGasPrice();
   if (
     gasTracker &&
     parseFloat(gasTracker.lastBlock) > parseFloat(lastBlock - 50)
   ) {
-    gasPrice = gasTracker.medium;
-  } else {
-    gasPrice = await web3.eth.getGasPrice();
+    if(gasPrice < gasTracker.medium){
+      gasPrice = gasTracker.medium;
+    }
   }
- 
+
   const gas = await new Promise((resolve, reject) => {
     ts.estimateGas(
       {
