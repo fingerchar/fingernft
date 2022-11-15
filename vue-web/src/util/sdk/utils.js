@@ -146,7 +146,7 @@ function contractAbi(type){
 const calcGas = async (web3, key, args, lastArg, ts) => {
   var block = await web3.eth.getBlock("latest");
   var lastBlock = block.number;
-  var gasTracker = store.state.app.config.gasTracker;
+  var gasTracker = store.state.gasTracker;
   let gasPrice = await web3.eth.getGasPrice();
   if (
     gasTracker &&
